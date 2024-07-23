@@ -85,9 +85,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.pushNamed(context, "/login");
               },
             ),
+            ListTile(
+              title: const Text('注册'),
+              onTap: () {
+                Navigator.pushNamed(context, "/register");
+              },
+            ),
           ],
         ),
-      ),
+      ),// This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
