@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:knowledege_bridge_flutter/common/UserController.dart';
+import 'package:knowledege_bridge_flutter/dao/UserController.dart';
 import 'package:knowledege_bridge_flutter/widgets/TipsWidget.dart';
 
 import '../model/NetResponse.dart';
@@ -59,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
                 alignment: Alignment.topLeft,
                 height: 80.w,
                 child: Image(
-                  image: const AssetImage("lib/resource/logo.png"),
+                  image: const AssetImage("lib/images/logo.png"),
                   height: 60.w,
                 ),
               ),

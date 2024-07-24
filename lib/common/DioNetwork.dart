@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:knowledege_bridge_flutter/common/Urls.dart';
 
 import '../model/NetResponse.dart';
 
@@ -14,7 +15,7 @@ class DioNetwork {
 
   DioNetwork._internal() {
     dio = Dio(BaseOptions(
-      baseUrl: 'http://172.16.232.179:8888/api/',));
+      baseUrl: Urls.baseUrl,));
   }
 
   // 发送GET请求
