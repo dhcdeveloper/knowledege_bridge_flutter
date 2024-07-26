@@ -20,13 +20,13 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
             title: 'Flutter Demo',
             theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+              colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
               useMaterial3: true,
             ),
             initialRoute: '/',
             getPages: route
-            // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-            );
+          // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+        );
       },
     );
   }
