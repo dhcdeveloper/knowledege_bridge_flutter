@@ -299,7 +299,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       onTap: () {
-                        print("立即注册");
+                        Navigator.pushNamed(context, "/register");
                       },
                     ),
                   ],
