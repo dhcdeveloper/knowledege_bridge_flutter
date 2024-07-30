@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'routes/kb_routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import './pages/kb_splash_screen_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +21,8 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
             title: 'Flutter Demo',
             theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+              colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
+              visualDensity: VisualDensity.adaptivePlatformDensity,
               useMaterial3: true,
             ),
             initialRoute: '/',

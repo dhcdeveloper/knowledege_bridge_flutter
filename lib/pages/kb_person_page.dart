@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'kb_person_page.dart';
+import 'kb_my_home_page.dart';
+import 'kb _register.page.dart';
+import 'kb_login_page.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+class PersonPage extends StatefulWidget {
+  const PersonPage({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<PersonPage> createState() => _PersonPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _PersonPageState extends State<PersonPage> {
 
   @override
   Widget build(BuildContext context) {
@@ -18,14 +20,14 @@ class _MyHomePageState extends State<MyHomePage> {
         leading: null,
         centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text('Knowledge_bridge'),
+        title: Text('个人'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'home',
+              '个人',
             ),
           ],
         ),
@@ -37,13 +39,29 @@ class _MyHomePageState extends State<MyHomePage> {
             ListTile(
               title: const Text('登录'),
               onTap: () {
-                Navigator.pushNamed(context, "/login");
+                Navigator.of(context).push(
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) => LoginPage(),
+                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                      return child;
+                    },
+                  ),
+                );
+                //Navigator.pushNamed(context, "/login");
               },
             ),
             ListTile(
               title: const Text('注册'),
               onTap: () {
-                Navigator.pushNamed(context, "/register");
+                Navigator.of(context).push(
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) => LoginPage(),
+                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                      return child;
+                    },
+                  ),
+                );
+                //Navigator.pushNamed(context, "/register");
               },
             ),
           ],
@@ -66,12 +84,22 @@ class _MyHomePageState extends State<MyHomePage> {
                     IconButton(
                       icon: Icon(Icons.calendar_month, size: 30),
                       iconSize: 30,
-                      onPressed: null,
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          PageRouteBuilder(
+                            pageBuilder: (context, animation, secondaryAnimation) => MyHomePage(),
+                            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                              return child;
+                            },
+                          ),
+                        );
+                        //Navigator.pushNamed(context, "/home");
+                      },
                     ),
                     Text('我的日程',
                       style: TextStyle(
-                          fontSize: 8.0,
-                          color: Colors.grey,
+                        fontSize: 8.0,
+                        color: Colors.white,
                       ),
                     ),
                   ],
@@ -88,8 +116,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     Text('共享',
                       style: TextStyle(
-                          fontSize: 8.0,
-                          color: Colors.white,
+                        fontSize: 8.0,
+                        color: Colors.white,
                       ),
                     ),
                   ],
@@ -106,8 +134,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     Text('消息',
                       style: TextStyle(
-                          fontSize: 8.0,
-                          color: Colors.white,
+                        fontSize: 8.0,
+                        color: Colors.white,
                       ),
                     ),
                   ],
@@ -119,22 +147,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     IconButton(
                       icon: Icon(Icons.person, size: 30),
                       iconSize: 30,
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          PageRouteBuilder(
-                            pageBuilder: (context, animation, secondaryAnimation) => PersonPage(),
-                            transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                              return child;
-                            },
-                          ),
-                        );
-                        //Navigator.pushNamed(context, "/person");
-                      },
+                      onPressed: null,
                     ),
                     Text('我',
                       style: TextStyle(
-                          fontSize: 8.0,
-                          color: Colors.white,
+                        fontSize: 8.0,
+                        color: Colors.grey,
                       ),
                     ),
                   ],
@@ -144,7 +162,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       ),
-
     );
   }
 }

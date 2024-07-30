@@ -39,6 +39,7 @@ dependencies:
   flutter_screenutil: ^5.9.0
   dio: ^5.5.0+1
   json_annotation: ^4.9.0
+  animations: ^2.0.11
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -59,6 +60,7 @@ flutter:
   assets:
     - lib/images/logo.png
     - lib/images/rabbit.png
+    - lib/images/page.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

@@ -4,6 +4,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:io';
+import 'dart:async';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key, required this.title});
@@ -141,7 +143,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     alignment: Alignment.center,
                     children: <Widget>[
                       CircleAvatar(
-                        radius: 100.0,
+                        radius: 80.0,
                         backgroundImage: _image ??  const AssetImage("lib/images/rabbit.png"),
                       ),
                       Positioned(
@@ -162,7 +164,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
               ),
               TextFormField(
                 controller: _nameController,
-                decoration: InputDecoration(labelText: '用户名'),
+                decoration: InputDecoration(
+                    labelText: '用户名',
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return '请输入用户名';
@@ -172,7 +176,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
               ),
               TextFormField(
                 controller: _emailController,
-                decoration: InputDecoration(labelText: '邮箱'),
+                decoration: InputDecoration(
+                  labelText: '邮箱',
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return '请输入邮箱';
@@ -190,13 +196,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 decoration: InputDecoration(
                     labelText: '密码',
                     suffixIcon: IconButton(
-                      icon: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
+                      icon: Icon(_obscureText ? Icons.visibility_off : Icons.visibility),
                       onPressed: () {
                         setState(() {
                           _obscureText = !_obscureText;
                     });
                   },
                 ),
+                    suffixIconColor: Colors.grey,
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -213,13 +220,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 decoration: InputDecoration(
                     labelText: '确认密码',
                     suffixIcon: IconButton(
-                      icon: Icon(_obscureText1 ? Icons.visibility : Icons.visibility_off),
+                      icon: Icon(_obscureText1 ? Icons.visibility_off : Icons.visibility),
                         onPressed: () {
                           setState(() {
                             _obscureText1 = !_obscureText1;
-                  });
-                },
-              ),
+                          });
+                        },
+                    ),
+                    suffixIconColor: Colors.grey,
                 ),
                 validator: (value) {
                   if (value != _passwordController.text) {
@@ -228,84 +236,82 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   return null;
                 },
               ),
-              SizedBox(height: 50),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.blue,
-                  onPrimary: Colors.white,
-                  minimumSize: Size(200, 40),
-                  textStyle: TextStyle(
-                    fontSize: 18,
+              SizedBox(height: 30),
+              DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    begin: Alignment.bottomLeft,
+                    end: Alignment.topRight,
+                    colors: [
+                      Color(0xFF1CAFFC),
+                      Color(0xFF027BFD),
+                    ],
                   ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color(0xFFDFF4FF),
+                      offset: Offset(3.w, 3.w),
+                      blurRadius: 5.r,
+                    ),
+                  ],
+                  borderRadius: BorderRadius.circular(25.r),
                 ),
-                child:
-                Text('注册'),
-                onPressed: _register,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text('已有账号？  立即'),
-                  GestureDetector(
-                    child:Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Text(
-                          '登录',
-                          style: TextStyle(
-                              color: Colors.blue,
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: InkWell(
+                    highlightColor: Colors.transparent,
+                    borderRadius: BorderRadius.circular(25.r),
+                    onTap: _register,
+                    child: ConstrainedBox(
+                      constraints:
+                      BoxConstraints.tightFor(height: 45.w, width: 250.w),
+                      child: Center(
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(8.w, 8.w, 8.w, 8.w),
+                          child: DefaultTextStyle(
+                            style:
+                            TextStyle(color: Colors.white, fontSize: 14.sp),
+                            child: const Text("注册"),
                           ),
                         ),
-                        SizedBox(width: 3),
-                        Icon(
-                          Icons.login,
-                          size: 16.0,
-                          color: Colors.blue,
-                        ),
-                      ],
+                      ),
                     ),
-                    onTap: () {
-                      Navigator.pushNamed(context, "/login");
-                    },
                   ),
-                ],
+                ),
+              ),
+              Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.only(top: 20.w),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      "已有账号？ ",
+                      style: TextStyle(
+                        color: Colors.black26,
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    InkWell(
+                      child: Text(
+                        "立即登录",
+                        style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 10.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pushNamed(context, "/login");
+                      },
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
         ),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.blue,
-        child: Theme(
-          data: ThemeData(
-            iconTheme: IconThemeData(color: Colors.white),
-          ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            IconButton(
-              icon: Icon(Icons.home),
-              onPressed: () {
-              },
-            ),
-            IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {
-              },
-            ),
-            IconButton(
-              icon: Icon(Icons.notifications),
-              onPressed: () {
-              },
-            ),
-            IconButton(
-              icon: Icon(Icons.person),
-              onPressed: () {
-              },
-            ),
-          ],
-        ),
-       ),
       ),
     );
   }
