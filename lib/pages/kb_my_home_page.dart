@@ -46,6 +46,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.pushNamed(context, "/register");
               },
             ),
+            ListTile(
+              title: const Text('上传'),
+              onTap: () {
+                Navigator.pushNamed(context, "/upload");
+              },
+            ),
           ],
         ),
       ),

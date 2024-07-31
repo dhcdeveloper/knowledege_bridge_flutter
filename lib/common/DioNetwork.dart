@@ -19,7 +19,7 @@ class DioNetwork {
   }
 
   // 发送GET请求
-  Future<NetResponse> get(String url, Map<String, dynamic> params) async {
+  Future<NetResponse<T>> get<T>(String url, Map<String, dynamic> params,T Function(dynamic? json) fromJsonT) async {
     Response? response;
     try {
       response = await dio.get(url, queryParameters: params);
@@ -28,11 +28,11 @@ class DioNetwork {
       print('get请求发生错误: ${e.message}');
       response = e.response;
     }
-    return NetResponse.fromJson(jsonDecode(response.toString()));
+    return NetResponse.fromJson(jsonDecode(response.toString()), fromJsonT);
   }
 
   // 发送POST请求
-  Future<NetResponse> post(String url, Map<String, dynamic> params) async {
+  Future<NetResponse<T>> post<T>(String url, Map<String, dynamic> params,T Function(dynamic? json) fromJsonT) async {
     Response? response;
     try {
       response = await dio.post(url, data: params);
@@ -41,6 +41,19 @@ class DioNetwork {
       print('post请求发生错误: ${e.message}');
       response = e.response;
     }
-    return NetResponse.fromJson(jsonDecode(response.toString()));
+    return NetResponse.fromJson(jsonDecode(response.toString()), fromJsonT);
+  }
+
+  // 发送POST请求(FormData)
+  Future<NetResponse<T>> postFormData<T>(String url, FormData params,T Function(dynamic? json) fromJsonT) async {
+    Response? response;
+    try {
+      response = await dio.post(url, data: params);
+    } on DioException catch (e) {
+      // 处理错误
+      print('post请求发生错误: ${e.message}');
+      response = e.response;
+    }
+    return NetResponse.fromJson(jsonDecode(response.toString()), fromJsonT);
   }
 }

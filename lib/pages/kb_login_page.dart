@@ -6,6 +6,7 @@ import 'package:knowledege_bridge_flutter/dao/UserController.dart';
 import 'package:knowledege_bridge_flutter/widgets/TipsWidget.dart';
 
 import '../model/NetResponse.dart';
+import '../model/User.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -249,7 +250,7 @@ class _LoginPageState extends State<LoginPage> {
                     onTap: () async {
                       if ((_formKey.currentState as FormState).validate()) {
                         (_formKey.currentState as FormState).save();
-                        NetResponse response = await UserController().userLogin(_mail, _password);
+                        NetResponse<User> response = await UserController.userLogin(_mail, _password);
                         if (!context.mounted) return;
                         if (response.response == 0) {
                           showTips(context, response.errorText!);

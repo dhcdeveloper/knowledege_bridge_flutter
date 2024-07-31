@@ -4,15 +4,15 @@ import 'User.dart';
 
 part 'NetResponse.g.dart';
 
-@JsonSerializable()
-class NetResponse {
+@JsonSerializable(genericArgumentFactories: true)
+class NetResponse<T> {
 
   NetResponse();
 
   late int response;
   late String? errorText;
-  late User? responseData;
+  late T? responseData;
 
-  factory NetResponse.fromJson(Map<String,dynamic> json) => _$NetResponseFromJson(json);
-  Map<String, dynamic> toJson() => _$NetResponseToJson(this);
+  factory NetResponse.fromJson(Map<String,dynamic> json, T Function(Object? json) fromJsonT) => _$NetResponseFromJson<T>(json, fromJsonT);
+  Map<String, dynamic> toJson(Object? Function(T value) toJsonT) => _$NetResponseToJson<T>(this, toJsonT);
 }
