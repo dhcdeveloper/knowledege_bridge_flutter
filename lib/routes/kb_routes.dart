@@ -9,10 +9,10 @@ import '../pages/kb_upload_page.dart';
 List<GetPage<dynamic>> route = [
   GetPage(name: '/', page: () => SplashScreen()),
   GetPage(name: '/home', page: () => const MyHomePage()),
-  GetPage(name: '/register', page: () => const RegistrationPage(title: '注册')),
+  GetPage(name: '/register', page: () => const RegistrationPage()),
   GetPage(name: '/login', page: () => const LoginPage()),
   GetPage(name: '/upload', page: () => const UploadPage()),
-  GetPage(name: '/person', page: () => const PersonPage()),
+  GetPage(name: '/Select', page: () => const SelectedIndexPage()),
 ];
 
 

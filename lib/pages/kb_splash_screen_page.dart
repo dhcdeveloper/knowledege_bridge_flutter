@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -26,11 +27,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _navigateToLoginPage();
-  }
-
-  _navigateToLoginPage() async {
-    await Future.delayed(Duration(seconds: 3));
-    Navigator.pushNamed(context, "/home");
+    Timer(Duration(seconds: 3), () {
+      Navigator.of(context).pushNamedAndRemoveUntil('/Select', (route) => false);
+    });
   }
 }

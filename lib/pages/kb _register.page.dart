@@ -1,4 +1,4 @@
-import 'package:knowledege_bridge_flutter/common/urls_utils.dart';
+import 'package:knowledege_bridge_flutter/common/Urls_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
@@ -8,8 +8,7 @@ import 'dart:async';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RegistrationPage extends StatefulWidget {
-  const RegistrationPage({super.key, required this.title});
-  final String title;
+  const RegistrationPage({super.key});
 
   @override
   _RegistrationPageState createState() => _RegistrationPageState();
@@ -71,7 +70,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 TextButton(
                   child: Text('确定'),
                   onPressed: () {
-                    Navigator.popAndPushNamed(context, "/login");
+                    Navigator.pushNamed(context, "/login");
                   },
                 ),
               ],
@@ -128,7 +127,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: Text('注册'),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -303,7 +302,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         ),
                       ),
                       onTap: () {
-                        Navigator.popAndPushNamed(context, "/login");
+                        Navigator.pushNamed(context, "/login");
                       },
                     ),
                   ],
