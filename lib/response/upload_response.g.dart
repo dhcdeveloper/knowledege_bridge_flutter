@@ -1,15 +1,15 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'UploadFile.dart';
+part of 'upload_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-UploadFile _$UploadFileFromJson(Map<String, dynamic> json) =>
-    UploadFile()..message = json['message'] as String;
+UploadResponse _$UploadResponseFromJson(Map<String, dynamic> json) =>
+    UploadResponse()..message = json['message'] as String;
 
-Map<String, dynamic> _$UploadFileToJson(UploadFile instance) =>
+Map<String, dynamic> _$UploadResponseToJson(UploadResponse instance) =>
     <String, dynamic>{
       'message': instance.message,
     };

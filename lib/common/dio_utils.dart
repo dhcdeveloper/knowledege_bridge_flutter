@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:knowledege_bridge_flutter/common/Urls.dart';
+import 'package:knowledege_bridge_flutter/common/urls_utils.dart';
 
-import '../model/NetResponse.dart';
+import '../response/base_response.dart';
 
 class DioNetwork {
   static final DioNetwork _instance = DioNetwork._internal();
@@ -19,7 +19,7 @@ class DioNetwork {
   }
 
   // 发送GET请求
-  Future<NetResponse<T>> get<T>(String url, Map<String, dynamic> params,T Function(dynamic? json) fromJsonT) async {
+  Future<BaseResponse<T>> get<T>(String url, Map<String, dynamic> params,T Function(dynamic json) fromJsonT) async {
     Response? response;
     try {
       response = await dio.get(url, queryParameters: params);
@@ -28,11 +28,11 @@ class DioNetwork {
       print('get请求发生错误: ${e.message}');
       response = e.response;
     }
-    return NetResponse.fromJson(jsonDecode(response.toString()), fromJsonT);
+    return BaseResponse.fromJson(jsonDecode(response.toString()), fromJsonT);
   }
 
   // 发送POST请求
-  Future<NetResponse<T>> post<T>(String url, Map<String, dynamic> params,T Function(dynamic? json) fromJsonT) async {
+  Future<BaseResponse<T>> post<T>(String url, Map<String, dynamic> params,T Function(dynamic json) fromJsonT) async {
     Response? response;
     try {
       response = await dio.post(url, data: params);
@@ -41,11 +41,11 @@ class DioNetwork {
       print('post请求发生错误: ${e.message}');
       response = e.response;
     }
-    return NetResponse.fromJson(jsonDecode(response.toString()), fromJsonT);
+    return BaseResponse.fromJson(jsonDecode(response.toString()), fromJsonT);
   }
 
   // 发送POST请求(FormData)
-  Future<NetResponse<T>> postFormData<T>(String url, FormData params,T Function(dynamic? json) fromJsonT) async {
+  Future<BaseResponse<T>> postFormData<T>(String url, FormData params,T Function(dynamic json) fromJsonT) async {
     Response? response;
     try {
       response = await dio.post(url, data: params);
@@ -54,6 +54,6 @@ class DioNetwork {
       print('post请求发生错误: ${e.message}');
       response = e.response;
     }
-    return NetResponse.fromJson(jsonDecode(response.toString()), fromJsonT);
+    return BaseResponse.fromJson(jsonDecode(response.toString()), fromJsonT);
   }
 }

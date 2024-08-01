@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:knowledege_bridge_flutter/dao/UserController.dart';
+import 'package:knowledege_bridge_flutter/dao/user_controller.dart';
 import 'package:knowledege_bridge_flutter/widgets/TipsWidget.dart';
 
-import '../model/NetResponse.dart';
-import '../model/User.dart';
+import '../response/base_response.dart';
+import '../model/user_model.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -250,7 +250,7 @@ class _LoginPageState extends State<LoginPage> {
                     onTap: () async {
                       if ((_formKey.currentState as FormState).validate()) {
                         (_formKey.currentState as FormState).save();
-                        NetResponse<User> response = await UserController.userLogin(_mail, _password);
+                        BaseResponse<User> response = await UserController.userLogin(_mail, _password);
                         if (!context.mounted) return;
                         if (response.response == 0) {
                           showTips(context, response.errorText!);

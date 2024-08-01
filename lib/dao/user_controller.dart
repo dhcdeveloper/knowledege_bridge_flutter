@@ -1,14 +1,14 @@
-import 'package:knowledege_bridge_flutter/common/Urls.dart';
-import 'package:knowledege_bridge_flutter/model/User.dart';
+import 'package:knowledege_bridge_flutter/common/urls_utils.dart';
+import 'package:knowledege_bridge_flutter/model/user_model.dart';
 
-import '../model/NetResponse.dart';
-import '../common/DioNetwork.dart';
+import '../response/base_response.dart';
+import '../common/dio_utils.dart';
 
 class UserController {
 // 登录接口，登录成功后返回用户信息
-  static Future<NetResponse<User>> userLogin(
+  static Future<BaseResponse<User>> userLogin(
       String email, String password) async {
-    NetResponse<User> response;
+    BaseResponse<User> response;
     response = await DioNetwork().post(
         Urls.userLogin,
         {

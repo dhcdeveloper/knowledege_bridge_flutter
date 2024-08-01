@@ -1,23 +1,23 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'NetResponse.dart';
+part of 'base_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-NetResponse<T> _$NetResponseFromJson<T>(
+BaseResponse<T> _$BaseResponseFromJson<T>(
   Map<String, dynamic> json,
   T Function(Object? json) fromJsonT,
 ) =>
-    NetResponse<T>()
+    BaseResponse<T>()
       ..response = (json['response'] as num).toInt()
       ..errorText = json['error_text'] as String?
       ..responseData =
           _$nullableGenericFromJson(json['data'], fromJsonT);
 
-Map<String, dynamic> _$NetResponseToJson<T>(
-  NetResponse<T> instance,
+Map<String, dynamic> _$BaseResponseToJson<T>(
+    BaseResponse<T> instance,
   Object? Function(T value) toJsonT,
 ) =>
     <String, dynamic>{
