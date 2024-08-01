@@ -71,7 +71,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 TextButton(
                   child: Text('确定'),
                   onPressed: () {
-                    Navigator.pushNamed(context, "/login");
+                    Navigator.popAndPushNamed(context, "/login");
                   },
                 ),
               ],
@@ -303,7 +303,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         ),
                       ),
                       onTap: () {
-                        Navigator.pushNamed(context, "/login");
+                        Navigator.popAndPushNamed(context, "/login");
                       },
                     ),
                   ],

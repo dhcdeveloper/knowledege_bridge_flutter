@@ -36,13 +36,13 @@ class _LoginPageState extends State<LoginPage> {
       borderSide: const BorderSide(color: Color(0xFFC75450)),
     );
 
-    void showTips(BuildContext context, String tips) {
+    Future showTips(BuildContext context, String tips) async {
       showDialog(context: context, builder: (context) {
         return TipsWidget(content: tips);
       });
 
       // 使用Timer自动关闭对话框
-      Timer(const Duration(seconds: 1), () {
+      await Future.delayed(const Duration(seconds: 1), () {
         Navigator.of(context).pop(); // 关闭对话框
       });
     }
@@ -253,9 +253,11 @@ class _LoginPageState extends State<LoginPage> {
                         BaseResponse<User> response = await UserController.userLogin(_mail, _password);
                         if (!context.mounted) return;
                         if (response.response == 0) {
-                          showTips(context, response.errorText!);
+                          await showTips(context, response.errorText!);
                         } else {
-                          showTips(context, "登录成功");
+                          await showTips(context, "登录成功");
+                          if (!context.mounted) return;
+                          Navigator.pushNamedAndRemoveUntil(context, "/home", (Route<dynamic> route) => false);
                         }
                       }
                     },
@@ -300,7 +302,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       onTap: () {
-                        Navigator.pushNamed(context, "/register");
+                        Navigator.popAndPushNamed(context, "/register");
                       },
                     ),
                   ],
