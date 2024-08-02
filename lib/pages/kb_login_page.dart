@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:knowledege_bridge_flutter/dao/user_controller.dart';
 import 'package:knowledege_bridge_flutter/widgets/TipsWidget.dart';
 
+import '../dao/user_controller_test.dart';
 import '../response/base_response.dart';
 import '../model/user_model.dart';
 
@@ -20,6 +21,18 @@ class _LoginPageState extends State<LoginPage> {
   String _mail = "";
   String _password = "";
   bool _passwordInvisible = true;
+
+  @override
+  initState() {
+    super.initState();
+    //test
+    _deleteJson();
+  }
+
+  //test
+  _deleteJson() async {
+    await UserControllerTest.deleteUserInJson();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -250,14 +263,34 @@ class _LoginPageState extends State<LoginPage> {
                     onTap: () async {
                       if ((_formKey.currentState as FormState).validate()) {
                         (_formKey.currentState as FormState).save();
-                        BaseResponse<User> response = await UserController.userLogin(_mail, _password);
-                        if (!context.mounted) return;
-                        if (response.response == 0) {
-                          await showTips(context, response.errorText!);
+                        // BaseResponse<User> response = await UserController.userLogin(_mail, _password);
+                        // if (!context.mounted) return;
+                        // if (response.response == 0) {
+                        //   await showTips(context, response.errorText!);
+                        // } else {
+                        //   await showTips(context, "登录成功");
+                        //   if (!context.mounted) return;
+                        //   Navigator.pushNamedAndRemoveUntil(context, "/home", (Route<dynamic> route) => false);
+                        // }
+
+                        //test
+                        if (_mail == '3333@qq.com') {
+                          await showTips(context, '邮箱不存在!');
+                        } else if (_mail == '4444@qq.com') {
+                          await showTips(context, '密码不正确!');
                         } else {
-                          await showTips(context, "登录成功");
+                          User user = User();
+                          user.email = _mail;
+                          user.name = '用户10086';
+                          bool res = await UserControllerTest.setUserInJson(user);
                           if (!context.mounted) return;
-                          Navigator.pushNamedAndRemoveUntil(context, "/home", (Route<dynamic> route) => false);
+                          if (res) {
+                            await showTips(context, "登录成功");
+                            if (!context.mounted) return;
+                            Navigator.pushNamedAndRemoveUntil(context, "/home", (Route<dynamic> route) => false);
+                          } else {
+                            await showTips(context, "发生错误！");
+                          }
                         }
                       }
                     },
