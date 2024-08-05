@@ -11,8 +11,33 @@ class UserControllerTest {
     bool success = false;
 
     user.id = 10086;
+    user.name = "小李";
     user.group = 2;
-    user.sex = 1;
+    user.sex = 2;
+    user.birthday = "20240401";
+    user.profilePicture = "";
+    user.createdAt = DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now());
+    user.updatedAt = 0;
+    user.deletedAt = 0;
+
+    try {
+      JsonUtils jsonUtils = JsonUtils('user.json');
+      await jsonUtils.writeCache(jsonEncode(user.toJson()));
+      success = true;
+      isLogin = true;
+      print("保存user缓存成功");
+    } catch (e) {
+      print("保存user缓存失败: $e");
+    }
+    return success;
+  }
+  static Future<bool> setUserInJson2(User user) async {
+    bool success = false;
+
+    user.id = user.id;
+    user.name = user.name;
+    user.group = user.group;
+    user.sex = user.sex;
     user.birthday = "20240401";
     user.profilePicture = "";
     user.createdAt = DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now());

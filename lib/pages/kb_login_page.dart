@@ -287,7 +287,7 @@ class _LoginPageState extends State<LoginPage> {
                           if (res) {
                             await showTips(context, "登录成功");
                             if (!context.mounted) return;
-                            Navigator.pushNamedAndRemoveUntil(context, "/home", (Route<dynamic> route) => false);
+                            Navigator.pushNamedAndRemoveUntil(context, "/select", (Route<dynamic> route) => false);
                           } else {
                             await showTips(context, "发生错误！");
                           }

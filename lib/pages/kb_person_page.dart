@@ -1,114 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import '../model/user_model.dart';
 
-class SelectedIndexPage extends StatefulWidget {
-  const SelectedIndexPage({super.key});
+import '../dao/user_controller_test.dart';
+
+
+class PersonPage extends StatefulWidget {
+  final VoidCallback onRefresh;
+
+  const PersonPage({super.key, required this.onRefresh});
 
   @override
-  State<SelectedIndexPage> createState() => _SelectedIndexPage();
+  _PersonPageState createState() => _PersonPageState();
 }
 
-class _SelectedIndexPage extends State<SelectedIndexPage> {
-  int _selectedIndex = 0;
-
-  final List<Widget> _pages = [
-    CalendarPage(),
-    SharePage(),
-    MessagePage(),
-    PersonPage(),
-  ];
+class _PersonPageState extends State<PersonPage> {
+  late Future<User> _userFuture;
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          IndexedStack(
-            index: _selectedIndex,
-            children: _pages,
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: CurvedNavigationBar(
-              backgroundColor: Colors.transparent,
-              color: Theme.of(context).colorScheme.inversePrimary,
-              animationDuration: const Duration(milliseconds: 300),
-              items: const <Widget>[
-                Icon(Icons.calendar_month, size: 30, color: Colors.white),
-                Icon(Icons.handshake, size: 30, color: Colors.white),
-                Icon(Icons.mail, size: 30, color: Colors.white),
-                Icon(Icons.person, size: 30, color: Colors.white),
-              ],
-              onTap: (index) {
-                setState(() {
-                  _selectedIndex = index;
-                });
-              },
-            ),
-          ),
-        ],
-      ),
-    );
+  void initState() {
+    super.initState();
+    _userFuture = UserControllerTest.getUserFromJson();
   }
-}
 
-class CalendarPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        leading: null,
-        centerTitle: true,
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text('我的日程'),
-      ),
-      body: Container(
-        color: Colors.white,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Text(
-                '我的日程',
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+  Future<void> _refreshUser() async {
+    setState(() {
+      _userFuture = UserControllerTest.getUserFromJson();
+    });
   }
-}
 
-class SharePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        color: Colors.white,
-        child: Center(
-          child: Text('共享页面'),
-        ),
-      ),
-    );
-  }
-}
-
-class MessagePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        color: Colors.white,
-        child: Center(
-          child: Text('消息页面'),
-        ),
-      ),
-    );
-  }
-}
-
-class PersonPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -133,134 +52,247 @@ class PersonPage extends StatelessWidget {
         ),
       ),
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(250.0),
+        preferredSize: const Size.fromHeight(220.0),
         child: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           leading: Builder(
             builder: (BuildContext context) {
               return IconButton(
-                icon: Icon(Icons.menu, size: 20),
+                icon: const Icon(Icons.menu, size: 20),
                 onPressed: () {
                   Scaffold.of(context).openDrawer();
                 },
               );
             },
           ),
-          flexibleSpace: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+          flexibleSpace: FutureBuilder<User>(
+            future: _userFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Center(child: Text('错误: ${snapshot.error}'));
+              } else if (snapshot.hasData) {
+                User user = snapshot.data!;
+                bool sex = false;
+                if (user.sex == 1){
+                  sex = true;
+                }
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    CircleAvatar(
-                      backgroundImage: AssetImage('lib/images/rabbit.png'),
-                      radius: 60,
-                    ),
-                    SizedBox(width: 16.0),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Tom',
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                    Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          CircleAvatar(
+                            backgroundImage: AssetImage('lib/images/rabbit.png'),
+                            radius: 60,
                           ),
-                        ),
-                        SizedBox(height: 8.0),
-                        Text(
-                          '123@dhc.com.cn',
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            color: Colors.white,
+                          SizedBox(width: 16.0),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '姓名：${user.name ?? '---'}',
+                                style: TextStyle(
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              SizedBox(height: 8.0),
+                              Text(
+                                '邮箱：${user.email ?? '---'}',
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                        SizedBox(height: 4.0),
-                        Text(
-                          '通信业务二部',
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10.0, bottom: 10.0),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.location_on,
-                      color: Colors.white,
-                    ),
-                    SizedBox(width: 8.0),
-                    Text(
-                      '点击这里 填写简介',
-                      style: TextStyle(
-                        color: Colors.white,
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10.0, bottom: 10.0),
-                child: Row(
-                  children: [
-                    Container(
-                      height: 30,
-                      padding: const EdgeInsets.all(4.0),
-                      decoration: BoxDecoration(
-                        color: Colors.blueAccent,
-                        border: Border.all(color: Colors.blueAccent),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      child: Center(
-                        child: Icon(
-                          Icons.face_3,
-                          color: Colors.white,
-                          size: 16.0,
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 10.0),
-                    Container(
-                      height: 30,
-                      padding: const EdgeInsets.all(4.0),
-                      decoration: BoxDecoration(
-                        color: Colors.blueAccent,
-                        border: Border.all(color: Colors.blueAccent),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      child: Center(
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(
-                            '中国',
-                            style: TextStyle(
-                              color: Colors.white,
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10.0, bottom: 10.0),
+                      child: Row(
+                        children: [
+                          const SizedBox(width: 8.0),
+                          Container(
+                            height: 30,
+                            padding: const EdgeInsets.all(4.0),
+                            decoration: BoxDecoration(
+                              color: Colors.blueAccent,
+                              border: Border.all(color: Colors.blueAccent),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            child: Center(
+                              child: sex
+                                  ? Icon(
+                                Icons.face_3,
+                                color: Colors.white,
+                                size: 16.0,
+                              )
+                                  : Icon(
+                                Icons.face,
+                                color: Colors.white,
+                                size: 16.0,
+                              ),
                             ),
                           ),
-                        ),
+                          const SizedBox(width: 10.0),
+                          Container(
+                            height: 30,
+                            padding: const EdgeInsets.all(4.0),
+                            decoration: BoxDecoration(
+                              color: Colors.blueAccent,
+                              border: Border.all(color: Colors.blueAccent),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            child: const Center(
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  '中国',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const Spacer(),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.blueAccent,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8.0, vertical: 4.0),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                            ),
+                            onPressed: () async {
+                              final result = await Navigator.pushNamed(context, "/edit");
+                              if (result == true) {
+                                widget.onRefresh();
+                                _refreshUser();
+                              }
+                            },
+                            child: const Row(
+                              children: [
+                                Icon(
+                                  Icons.edit,
+                                  color: Colors.white,
+                                  size: 16.0,
+                                ),
+                                SizedBox(width: 4.0),
+                                Text(
+                                  '编辑资料',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12.0,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 16.0),
+                        ],
                       ),
                     ),
                   ],
-                ),
-              ),
-            ],
+                );
+              } else {
+                return Center(child: Text('没有数据'));
+              }
+            },
           ),
         ),
       ),
       body: Container(
-        color: Colors.white,
         child: Center(
-          child: Text('我的页面'),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              SizedBox(height: 20),
+              Container(
+                width: double.infinity,
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    padding: const EdgeInsets.all(16.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.zero,
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, "/setting");
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: const [
+                      Icon(
+                        Icons.settings,
+                        color: Colors.blueAccent,
+                        size: 16.0,
+                      ),
+                      SizedBox(width: 8.0),
+                      Text(
+                        '设置',
+                        style: TextStyle(
+                          color: Colors.blueAccent,
+                          fontSize: 16.0,
+                        ),
+                      ),
+                      Spacer(),
+                      Icon(
+                        Icons.arrow_forward,
+                        color: Colors.blueAccent,
+                        size: 16.0,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Spacer(),
+              Container(
+                width: double.infinity,
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    padding: const EdgeInsets.all(16.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.zero,
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pushNamedAndRemoveUntil('/login', (route) => false);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(
+                        Icons.exit_to_app,
+                        color: Colors.red,
+                        size: 16.0,
+                      ),
+                      SizedBox(width: 8.0),
+                      Text(
+                        '退出',
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 16.0,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: 100),
+            ],
+          ),
         ),
       ),
     );

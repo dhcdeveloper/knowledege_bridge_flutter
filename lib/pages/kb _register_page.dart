@@ -20,6 +20,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+  int statusCode = 200;
   bool _emailText = false;
   bool _obscureText = true;
   bool _obscureText1 = true;
@@ -40,22 +41,24 @@ class _RegistrationPageState extends State<RegistrationPage> {
   }
 
   Future<void> _register() async {
+    if ( _emailController.text == '1111@qq.com') {
+      statusCode = 400;
+    }
     if (_formKey.currentState?.validate() ?? false) {
-      final response = await http.post(
-        Uri.parse(Urls.baseUrl+Urls.userRegister),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode(<String, String>{
-          'name': _nameController.text,
-          'email': _emailController.text,
-          'password': _passwordController.text,
-        }),
-      );
-
-      if (response.statusCode == 200) {
+      // final response = await http.post(
+      //   Uri.parse(Urls.baseUrl+Urls.userRegister),
+      //   headers: <String, String>{
+      //     'Content-Type': 'application/json; charset=UTF-8',
+      //   },
+      //   body: jsonEncode(<String, String>{
+      //     'name': _nameController.text,
+      //     'email': _emailController.text,
+      //     'password': _passwordController.text,
+      //   }),
+      // );
+      if (statusCode == 200) {
         print('注册成功');
-        print(response.statusCode);
+        print(statusCode);
         _nameController.clear();
         _emailController.clear();
         _passwordController.clear();
@@ -77,7 +80,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
             );
           },
         );
-      } else if (response.statusCode == 400) {
+      } else if (statusCode == 400) {
         showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -92,6 +95,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     _register();
                     Navigator.of(context).pop();
                     _emailText = false;
+                    statusCode = 200;
                   },
                 ),
               ],
@@ -100,7 +104,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
         );
       } else {
         print('注册失败');
-        print(response.statusCode);
+        print(statusCode);
         showDialog(
           context: context,
           builder: (BuildContext context) {
