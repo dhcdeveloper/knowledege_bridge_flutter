@@ -102,8 +102,8 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               Container(
-                alignment: Alignment.centerLeft,
-                height: 20.w,
+                alignment: Alignment.topLeft,
+                height: 25.w,
                 child: Text(
                   "邮箱",
                   style: TextStyle(
@@ -157,8 +157,8 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               Container(
-                alignment: Alignment.centerLeft,
-                height: 20.w,
+                alignment: Alignment.topLeft,
+                height: 25.w,
                 child: Text(
                   "密码",
                   style: TextStyle(
