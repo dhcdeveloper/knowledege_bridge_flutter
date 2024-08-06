@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TipsWidget extends Dialog {
-  final String content; //内容
+  final String content;
 
   const TipsWidget({
-    Key? key,
+    super.key,
     required this.content,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,15 +29,13 @@ class TipsWidget extends Dialog {
                     ),
                   ),
                 ),
-                child: Container(
-                  child: Padding(
-                    padding: EdgeInsets.all(12.w),
-                    child: IntrinsicHeight(
-                      child: Text(content,
-                          style: const TextStyle(
-                              color: Colors.black45,
-                              fontWeight: FontWeight.bold)),
-                    ),
+                child: Padding(
+                  padding: EdgeInsets.all(12.w),
+                  child: IntrinsicHeight(
+                    child: Text(content,
+                        style: const TextStyle(
+                            color: Colors.black45,
+                            fontWeight: FontWeight.bold)),
                   ),
                 ),
               )

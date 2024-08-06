@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:knowledege_bridge_flutter/dao/user_controller.dart';
-import 'package:knowledege_bridge_flutter/widgets/TipsWidget.dart';
+import 'package:knowledege_bridge_flutter/widgets/tips_widget.dart';
 
 import '../dao/user_controller_test.dart';
 import '../response/base_response.dart';

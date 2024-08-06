@@ -24,7 +24,7 @@ class _SelectedIndexPage extends State<SelectedIndexPage> {
     super.initState();
     _pages = [
       const CalendarPage(),
-      const SharePage(),
+      SharePage(),
       const MessagePage(),
       PersonPage(onRefresh: _refreshPersonPage),
     ];
