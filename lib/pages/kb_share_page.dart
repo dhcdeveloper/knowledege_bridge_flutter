@@ -160,7 +160,7 @@ class _SharePageState extends State<SharePage> {
     final double screenHeight = MediaQuery.of(context).size.height;
 
     double getEndCardHeight(int cardLength) {
-      int maxCardNum = screenHeight ~/ 190.w;
+      int maxCardNum = screenHeight ~/ 190.w - 1;
       return cardLength > maxCardNum ? screenHeight % 190.w + 60.w : screenHeight - cardLength * 190.w - 130.w;
     }
 
