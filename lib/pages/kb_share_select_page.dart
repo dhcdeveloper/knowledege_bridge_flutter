@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:knowledege_bridge_flutter/model/user_model.dart';
+import 'package:get/get.dart';
 
+import '../model/select_user.dart';
 import '../widgets/select_user_widget.dart';
 
 class ShareSelectPage extends StatefulWidget {
@@ -12,73 +13,65 @@ class ShareSelectPage extends StatefulWidget {
 }
 
 class _ShareSelectPageState extends State<ShareSelectPage> {
+  //所有的用户信息（包含是否选中）
+  List<SelectUser> _selectUserList = [];
+
   //所有的用户画面列表
-  List<Widget> userWidgetList = [];
+  final List<Widget> _userWidgetList = [];
 
-  //搜索后的用户画面列表
-  List<Widget> searchedUserWidgetList = [];
-
-  //所有的用户
-  List<User> userList = [];
-
-  //搜索后的用户
-  List<User> searchedUserList = [];
-
-  //是否正在搜索
-  bool _isSearch = false;
-
-  //搜索内容
-  String _searchText = '';
+  //搜索用户名
+  String searchText = '';
 
   @override
   initState() {
     super.initState();
 
-    //test
-    for (int i = 11; i <= 20; i++) {
-      User user = User();
-      user.id = i;
-      user.name = "李四$i";
-      user.profilePicture = 'lib/images/rabbit.png';
-      user.group = 2;
-      userList.add(user);
-    }
-    for (int i = 1; i <= 10; i++) {
-      User user = User();
-      user.id = i;
-      user.name = "张三$i";
-      user.profilePicture = 'lib/images/rabbit.png';
-      user.group = 1;
-      userList.add(user);
-    }
-    for (int i = 21; i <= 30; i++) {
-      User user = User();
-      user.id = i;
-      user.name = "王五$i";
-      user.profilePicture = 'lib/images/rabbit.png';
-      user.group = 3;
-      userList.add(user);
-    }
+    //获取路由传值
+    _selectUserList = Get.arguments['selectUserList'];
 
-    userList.sort((User a, User b) {
-      int result = a.group!.compareTo(b.group!);
-      if (result == 0) {
-        result = a.name!.compareTo(b.name!);
-      }
-      return result;
-    });
+    //更新展示的用户画面列表
+    _updateSelectList();
+  }
+
+  //更新展示的用户画面列表
+  _updateSelectList() {
+    //清空列表
+    _userWidgetList.clear();
 
     int? group;
-    for (User user in userList) {
-      if (group == null || group != user.group) {
-        group = user.group!;
-        userWidgetList.add(
-          Container(
-            child: Text("${user.group}"),
-          ),
-        );
+    for (SelectUser selectUser in _selectUserList) {
+      //根据用户组对用户分类
+      if (group == null || group != selectUser.user.group) {
+        group = selectUser.user.group!;
+        //如果搜索内容为空则显示用户的分组，否则不显示（显示空Container占位）
+        if (searchText == '') {
+          _userWidgetList.add(
+            Container(
+              color: const Color(0xFFF5F5F5),
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.w),
+              child: Text(
+                selectUser.user.group == 1
+                    ? '通信一部'
+                    : selectUser.user.group == 2
+                        ? '通信二部'
+                        : '通信三部',
+                style: TextStyle(
+                  color: const Color(0xFF808080),
+                  fontSize: 12.sp,
+                ),
+              ),
+            ),
+          );
+        } else {
+          _userWidgetList.add(Container());
+        }
       }
-      userWidgetList.add(SelectUserWidget(user: user));
+      //搜索内容为空时显示全部用户，不为空时显示用户名匹配的用户，不匹配的用户不显示（显示空Container占位）
+      if (searchText == '' || selectUser.user.name!.contains(searchText)) {
+        _userWidgetList.add(SelectUserWidget(selectUser: selectUser));
+      } else {
+        _userWidgetList.add(Container());
+      }
     }
   }
 
@@ -94,21 +87,13 @@ class _ShareSelectPageState extends State<ShareSelectPage> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('共享给谁'),
-            Container(
+            const Text('共享给谁'),
+            SizedBox(
               width: 60.w,
               child: ElevatedButton(
                 onPressed: () {
-                  List<User> selecteUserList = [];
-                  for (Widget widget in userWidgetList) {
-                    if (widget is SelectUserWidget) {
-                      SelectUserWidget userWidget = widget;
-                      if (userWidget.select) {
-                        selecteUserList.add(userWidget.user);
-                      }
-                    }
-                  }
-                  Navigator.pop(context, selecteUserList);
+                  //通过路由传值将选择的用户传给上传页面
+                  Navigator.pop(context, _selectUserList);
                 },
                 style: ButtonStyle(
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -119,12 +104,10 @@ class _ShareSelectPageState extends State<ShareSelectPage> {
                   minimumSize: MaterialStateProperty.all(Size.zero),
                   padding: MaterialStateProperty.all(EdgeInsets.all(6.w)),
                 ),
-                child: Container(
-                  child: Text(
-                    '发布',
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                    ),
+                child: Text(
+                  '发布',
+                  style: TextStyle(
+                    fontSize: 16.sp,
                   ),
                 ),
               ),
@@ -137,33 +120,31 @@ class _ShareSelectPageState extends State<ShareSelectPage> {
           SliverAppBar(
             automaticallyImplyLeading: false,
             pinned: true,
-            toolbarHeight: 60.w,
-            title: Container(
+            toolbarHeight: 50.w,
+            backgroundColor: const Color(0xFFF5F5F5),
+            title: SizedBox(
+              height: 40.w,
               child: TextField(
+                style: TextStyle(
+                  fontSize: 14.sp,
+                ),
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
                   hintText: "搜索",
-                  prefixIcon: Icon(Icons.search_rounded),
-                  border: OutlineInputBorder(),
+                  hintStyle: TextStyle(
+                    fontSize: 14.sp,
+                  ),
+                  prefixIcon: const Icon(Icons.search_rounded),
+                  border: const OutlineInputBorder(),
                   contentPadding: EdgeInsets.all(5.w),
                 ),
                 onChanged: (String text) {
                   setState(() {
-                    text == '' ? _isSearch = false : _isSearch = true;
-                    _searchText = text;
-                    searchedUserWidgetList.clear();
-                    // searchedUserList.clear();
-                    for (Widget widget in userWidgetList) {
-                      if (widget is SelectUserWidget) {
-                        SelectUserWidget userWidget = widget;
-                        if (userWidget.user.name!.contains(text)) {
-                          // searchedUserList.add(user);
-                          searchedUserWidgetList.add(userWidget);
-                        }
-                      }
-                    }
+                    searchText = text;
                   });
+                  //更新用户列表
+                  _updateSelectList();
                 },
               ),
             ),
@@ -180,11 +161,10 @@ class _ShareSelectPageState extends State<ShareSelectPage> {
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) {
-                return _isSearch ? searchedUserWidgetList[index] : userWidgetList[index];
+              (BuildContext context, int index) {
+                return _userWidgetList[index];
               },
-              childCount: _isSearch ? searchedUserWidgetList.length : userWidgetList.length,
-                addAutomaticKeepAlives: false,
+              childCount: _userWidgetList.length,
             ),
           ),
         ],

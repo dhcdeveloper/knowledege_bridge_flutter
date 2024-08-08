@@ -4,9 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../model/user_model.dart';
 
 class HeadPortraitWidget extends StatefulWidget {
-  HeadPortraitWidget({super.key, required this.user});
+  const HeadPortraitWidget({super.key, required this.user});
 
-  User user;
+  final User user;
 
   @override
   State<HeadPortraitWidget> createState() => _HeadPortraitWidgetState();

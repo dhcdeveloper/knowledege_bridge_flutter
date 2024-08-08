@@ -5,16 +5,16 @@ import 'package:mime/mime.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class UploadWidget extends StatefulWidget {
-  UploadWidget({super.key, required this.file});
+  const UploadWidget({super.key, required this.file});
 
-  PlatformFile file;
+  final PlatformFile file;
 
   @override
   State<UploadWidget> createState() => _UploadWidgetState();
 }
 
 class _UploadWidgetState extends State<UploadWidget> {
-  bool isImage = false;
+  bool _isImage = false;
 
   @override
   initState() {
@@ -23,14 +23,14 @@ class _UploadWidgetState extends State<UploadWidget> {
     final String? mimeType = lookupMimeType(widget.file.path!);
     setState(() {
       //判断文件是否为图片
-      isImage = mimeType!.startsWith('image/');
+      _isImage = mimeType!.startsWith('image/');
     });
   }
 
   @override
   Widget build(BuildContext context) {
     //文件类型是图片则显示缩略图，否则显示文件名
-    if (isImage) {
+    if (_isImage) {
       return Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.r),
@@ -64,7 +64,7 @@ class _UploadWidgetState extends State<UploadWidget> {
           color: const Color(0xFFF3F3F3),
         ),
         child: Center(
-          child: Text(widget.file.name!),
+          child: Text(widget.file.name),
         ),
       );
     }

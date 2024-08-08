@@ -1,49 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../model/user_model.dart';
+import '../model/select_user.dart';
 
 class SelectUserWidget extends StatefulWidget {
-  SelectUserWidget({super.key, required this.user});
+  const SelectUserWidget({super.key, required this.selectUser});
 
-  User user;
-
-  bool select = false;
+  final SelectUser selectUser;
 
   @override
   State<SelectUserWidget> createState() => _SelectUserWidgetState();
 }
 
 class _SelectUserWidgetState extends State<SelectUserWidget> {
-
   bool _select = false;
+
+  @override
+  initState() {
+    super.initState();
+
+    setState(() {
+      _select = widget.selectUser.select;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 35.w,
+      height: 40.w,
       decoration: BoxDecoration(
-        color: Color(0xFFEFF4F9),
         border: Border(
           bottom: BorderSide(
-            color: Colors.grey,
+            color: const Color(0xFFDCDCDC),
             width: 0.5.w,
           ),
         ),
       ),
-      child: ElevatedButton(
+      child: TextButton(
         onPressed: () {
           setState(() {
             _select = !_select;
           });
-          widget.select = _select;
+          widget.selectUser.select = _select;
         },
         style: ButtonStyle(
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
+            const RoundedRectangleBorder(
               borderRadius: BorderRadius.zero,
             ),
           ),
+          foregroundColor: const MaterialStatePropertyAll<Color>(Colors.black),
+          backgroundColor: const MaterialStatePropertyAll<Color>(Colors.white),
           padding: MaterialStateProperty.all(EdgeInsets.zero),
         ),
         child: Row(
@@ -51,22 +58,35 @@ class _SelectUserWidgetState extends State<SelectUserWidget> {
             Container(
               padding: EdgeInsets.symmetric(horizontal: 5.w),
               child: _select
-                  ? Icon(Icons.check_circle)
-                  : Icon(Icons.radio_button_unchecked),
+                  ? Icon(
+                      Icons.check_circle,
+                      color: const Color(0xFFADD8E6),
+                      size: 20.w,
+                    )
+                  : Icon(
+                      Icons.radio_button_unchecked,
+                      color: const Color(0xFFADD8E6),
+                      size: 20.w,
+                    ),
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 5.w),
+              padding: EdgeInsets.only(left: 5.w, right: 10.w),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(5.r),
                 child: Image.asset(
-                  widget.user.profilePicture!,
-                  width: 20.w,
-                  height: 20.w,
+                  widget.selectUser.user.profilePicture!,
+                  width: 24.w,
+                  height: 24.w,
                   fit: BoxFit.cover,
                 ),
               ),
             ),
-            Text("${widget.user.name}"),
+            Text(
+              "${widget.selectUser.user.name}",
+              style: TextStyle(
+                fontSize: 13.sp,
+              ),
+            ),
           ],
         ),
       ),

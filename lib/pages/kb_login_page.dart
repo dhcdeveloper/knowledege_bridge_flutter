@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:knowledege_bridge_flutter/common/show_tips_utils.dart';
 import 'package:knowledege_bridge_flutter/dao/user_controller.dart';
 import 'package:knowledege_bridge_flutter/widgets/tips_widget.dart';
 
@@ -48,17 +49,6 @@ class _LoginPageState extends State<LoginPage> {
       borderRadius: BorderRadius.circular(10.r),
       borderSide: const BorderSide(color: Color(0xFFC75450)),
     );
-
-    Future showTips(BuildContext context, String tips) async {
-      showDialog(context: context, builder: (context) {
-        return TipsWidget(content: tips);
-      });
-
-      // 使用Timer自动关闭对话框
-      await Future.delayed(const Duration(seconds: 1), () {
-        Navigator.of(context).pop(); // 关闭对话框
-      });
-    }
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -275,9 +265,9 @@ class _LoginPageState extends State<LoginPage> {
 
                         //test
                         if (_mail == '3333@qq.com') {
-                          await showTips(context, '邮箱不存在!');
+                          await ShowTipsUtils.showTips(context, '邮箱不存在!');
                         } else if (_mail == '4444@qq.com') {
-                          await showTips(context, '密码不正确!');
+                          await ShowTipsUtils.showTips(context, '密码不正确!');
                         } else {
                           User user = User();
                           user.email = _mail;
@@ -285,11 +275,11 @@ class _LoginPageState extends State<LoginPage> {
                           bool res = await UserControllerTest.setUserInJson(user);
                           if (!context.mounted) return;
                           if (res) {
-                            await showTips(context, "登录成功");
+                            await ShowTipsUtils.showTips(context, "登录成功");
                             if (!context.mounted) return;
                             Navigator.pushNamedAndRemoveUntil(context, "/select", (Route<dynamic> route) => false);
                           } else {
-                            await showTips(context, "发生错误！");
+                            await ShowTipsUtils.showTips(context, "发生错误！");
                           }
                         }
                       }
