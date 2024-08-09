@@ -77,6 +77,15 @@ class _ShareSelectPageState extends State<ShareSelectPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    var customBorder = const OutlineInputBorder(
+      borderSide: BorderSide(color: Color(0xFFD3D3D3)),
+    );
+
+    var focusedBorder = const OutlineInputBorder(
+      borderSide: BorderSide(color: Color(0xFF4682B4)),
+    );
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -122,8 +131,9 @@ class _ShareSelectPageState extends State<ShareSelectPage> {
             pinned: true,
             toolbarHeight: 50.w,
             backgroundColor: const Color(0xFFF5F5F5),
-            title: SizedBox(
+            title: Container(
               height: 40.w,
+              padding: EdgeInsets.symmetric(vertical: 2.w),
               child: TextField(
                 style: TextStyle(
                   fontSize: 14.sp,
@@ -136,7 +146,9 @@ class _ShareSelectPageState extends State<ShareSelectPage> {
                     fontSize: 14.sp,
                   ),
                   prefixIcon: const Icon(Icons.search_rounded),
-                  border: const OutlineInputBorder(),
+                  border: customBorder,
+                  enabledBorder: customBorder,
+                  focusedBorder: focusedBorder,
                   contentPadding: EdgeInsets.all(5.w),
                 ),
                 onChanged: (String text) {
