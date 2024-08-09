@@ -27,7 +27,7 @@ class _ShareCardWidgetState extends State<ShareCardWidget> {
     return Stack(
       children: [
         Container(
-          height: 190.w,
+          height: 200.w,
           padding: EdgeInsets.fromLTRB(15.w, 15.w, 15.w, 0.w),
           color: const Color(0xFFF5F5F5),
           child: Container(
@@ -84,7 +84,7 @@ class _ShareCardWidgetState extends State<ShareCardWidget> {
                   color: const Color(0xFFDCDCDC),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10.w),
+                  padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 1.w),
                   child: Text.rich(
                     TextSpan(
                       children: [
@@ -107,7 +107,7 @@ class _ShareCardWidgetState extends State<ShareCardWidget> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10.w),
+                  padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 1.w),
                   child: Text.rich(
                     TextSpan(
                       children: [
@@ -131,7 +131,7 @@ class _ShareCardWidgetState extends State<ShareCardWidget> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10.w),
+                  padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 1.w),
                   child: Text.rich(
                     TextSpan(
                       children: [
@@ -155,7 +155,7 @@ class _ShareCardWidgetState extends State<ShareCardWidget> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10.w),
+                  padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 1.w),
                   child: Text.rich(
                     TextSpan(
                       children: [
@@ -183,7 +183,7 @@ class _ShareCardWidgetState extends State<ShareCardWidget> {
                   color: const Color(0xFFDCDCDC),
                 ),
                 Container(
-                  height: 30.w,
+                  height: 34.w,
                   padding: EdgeInsets.symmetric(horizontal: 10.w),
                   child: Row(
                     children: [

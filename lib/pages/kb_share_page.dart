@@ -118,7 +118,7 @@ class _SharePageState extends State<SharePage> {
         title: '跨平台技术简介',
         mainBody:
             '针对原生开发面临的问题，业界一直都在努力寻找好的解决方案，而时至今日，已经有很多跨平台框架（注意，本书中所指的“跨平台”若无特殊说明，即特指 Android 和 iOS 两个平台），根据其原理，主要分为三类：',
-        user: my,
+        user: user1,
         shareUsers: shareUsers,
         fileNameList: ['跨平台技术简介.txt'],
         filePathList: ['/upload/跨平台技术简介.txt'],
@@ -160,8 +160,8 @@ class _SharePageState extends State<SharePage> {
     final double screenHeight = MediaQuery.of(context).size.height;
 
     double getEndCardHeight(int cardLength) {
-      int maxCardNum = screenHeight ~/ 190.w - 1;
-      return cardLength > maxCardNum ? screenHeight % 190.w + 60.w : screenHeight - cardLength * 190.w - 130.w;
+      int maxCardNum = screenHeight ~/ 200.w - 1;
+      return cardLength > maxCardNum ? screenHeight % 200.w + 90.w : screenHeight - cardLength * 200.w - 130.w;
     }
 
     return Scaffold(
@@ -191,14 +191,14 @@ class _SharePageState extends State<SharePage> {
                   }
                 },
               ),
-              const PopupMenuItem<String>(
-                value: 'Item 2',
-                child: Text('Item 2'),
-              ),
-              const PopupMenuItem<String>(
-                value: 'Item 3',
-                child: Text('Item 3'),
-              ),
+              // const PopupMenuItem<String>(
+              //   value: 'Item 2',
+              //   child: Text('Item 2'),
+              // ),
+              // const PopupMenuItem<String>(
+              //   value: 'Item 3',
+              //   child: Text('Item 3'),
+              // ),
             ],
             onSelected: (String value) {
               print('Selected: $value');

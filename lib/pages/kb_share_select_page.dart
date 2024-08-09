@@ -105,7 +105,7 @@ class _ShareSelectPageState extends State<ShareSelectPage> {
                   padding: MaterialStateProperty.all(EdgeInsets.all(6.w)),
                 ),
                 child: Text(
-                  '发布',
+                  '确定',
                   style: TextStyle(
                     fontSize: 16.sp,
                   ),

@@ -225,7 +225,7 @@ class _UploadPageState extends State<UploadPage> {
                             child: TextField(
                               controller: _titleController,
                               decoration: const InputDecoration(
-                                hintText: "填写标题会有更多赞哦~",
+                                hintText: "填写标题",
                               ),
                             ),
                           ),
