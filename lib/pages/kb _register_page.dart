@@ -147,7 +147,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     children: <Widget>[
                       CircleAvatar(
                         radius: 80.0,
-                        backgroundImage: _image ??  const AssetImage("lib/images/rabbit.png"),
+                        backgroundImage: _image ??  const AssetImage("lib/images/jiahao.png"),
                       ),
                       Positioned(
                         bottom: 0,

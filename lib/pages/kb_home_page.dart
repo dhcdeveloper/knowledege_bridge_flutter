@@ -5,8 +5,6 @@ import 'kb_calender_page.dart';
 import 'kb_share_page.dart';
 import 'kb_message_page.dart';
 
-import '../dao/user_controller_test.dart';
-
 class SelectedIndexPage extends StatefulWidget {
   const SelectedIndexPage({super.key});
 
@@ -25,7 +23,7 @@ class _SelectedIndexPage extends State<SelectedIndexPage> {
     _pages = [
       const CalendarPage(),
       SharePage(),
-      const MessagePage(),
+      MessagePage(),
       PersonPage(onRefresh: _refreshPersonPage),
     ];
   }

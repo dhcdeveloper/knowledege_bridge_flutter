@@ -18,7 +18,7 @@ class _NamePageState extends State<NamePage> {
       user.name = _nameController.text;
       await UserControllerTest.setUserInJson2(user);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('名字已更新')),
+        const SnackBar(content: Text('名字已更新')),
       );
       Navigator.pop(context, true);
     }
@@ -33,7 +33,7 @@ class _NamePageState extends State<NamePage> {
         title: const Text('编辑名字'),
         actions: [
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.check,
               color: Colors.blue,
             ),
@@ -50,7 +50,7 @@ class _NamePageState extends State<NamePage> {
             future: UserControllerTest.getUserFromJson(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
                 return Center(child: Text('错误: ${snapshot.error}'));
               } else if (snapshot.hasData) {
@@ -62,7 +62,7 @@ class _NamePageState extends State<NamePage> {
                     padding: const EdgeInsets.all(16.0),
                     child: TextFormField(
                       controller: _nameController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: '名字',
                         border: OutlineInputBorder(),
                       ),
@@ -76,7 +76,7 @@ class _NamePageState extends State<NamePage> {
                   ),
                 );
               } else {
-                return Center(child: Text('没有数据'));
+                return const Center(child: Text('没有数据'));
               }
             },
           ),

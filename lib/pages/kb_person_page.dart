@@ -69,7 +69,7 @@ class _PersonPageState extends State<PersonPage> {
             future: _userFuture,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
                 return Center(child: Text('错误: ${snapshot.error}'));
               } else if (snapshot.hasData) {
@@ -82,30 +82,30 @@ class _PersonPageState extends State<PersonPage> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: const EdgeInsets.all(10.0),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          CircleAvatar(
+                          const CircleAvatar(
                             backgroundImage: AssetImage('lib/images/rabbit.png'),
                             radius: 60,
                           ),
-                          SizedBox(width: 16.0),
+                          const SizedBox(width: 16.0),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 '姓名：${user.name ?? '---'}',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 20.0,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
                                 ),
                               ),
-                              SizedBox(height: 8.0),
+                              const SizedBox(height: 8.0),
                               Text(
                                 '邮箱：${user.email ?? '---'}',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 12.0,
                                   color: Colors.white,
                                 ),
@@ -130,12 +130,12 @@ class _PersonPageState extends State<PersonPage> {
                             ),
                             child: Center(
                               child: sex
-                                  ? Icon(
+                                  ? const Icon(
                                 Icons.face_3,
                                 color: Colors.white,
                                 size: 16.0,
                               )
-                                  : Icon(
+                                  : const Icon(
                                 Icons.face,
                                 color: Colors.white,
                                 size: 16.0,
@@ -205,94 +205,92 @@ class _PersonPageState extends State<PersonPage> {
                   ],
                 );
               } else {
-                return Center(child: Text('没有数据'));
+                return const Center(child: Text('没有数据'));
               }
             },
           ),
         ),
       ),
-      body: Container(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(height: 20),
-              Container(
-                width: double.infinity,
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    padding: const EdgeInsets.all(16.0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.zero,
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, "/setting");
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
-                      Icon(
-                        Icons.settings,
-                        color: Colors.blueAccent,
-                        size: 16.0,
-                      ),
-                      SizedBox(width: 8.0),
-                      Text(
-                        '设置',
-                        style: TextStyle(
-                          color: Colors.blueAccent,
-                          fontSize: 16.0,
-                        ),
-                      ),
-                      Spacer(),
-                      Icon(
-                        Icons.arrow_forward,
-                        color: Colors.blueAccent,
-                        size: 16.0,
-                      ),
-                    ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            const SizedBox(height: 20),
+            SizedBox(
+              width: double.infinity,
+              child: TextButton(
+                style: TextButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  padding: const EdgeInsets.all(16.0),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero,
                   ),
                 ),
-              ),
-              Spacer(),
-              Container(
-                width: double.infinity,
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    padding: const EdgeInsets.all(16.0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.zero,
+                onPressed: () {
+                  Navigator.pushNamed(context, "/setting");
+                },
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Icon(
+                      Icons.settings,
+                      color: Colors.blueAccent,
+                      size: 16.0,
                     ),
+                    SizedBox(width: 8.0),
+                    Text(
+                      '设置',
+                      style: TextStyle(
+                        color: Colors.blueAccent,
+                        fontSize: 16.0,
+                      ),
+                    ),
+                    Spacer(),
+                    Icon(
+                      Icons.arrow_forward,
+                      color: Colors.blueAccent,
+                      size: 16.0,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Spacer(),
+            Container(
+              width: double.infinity,
+              child: TextButton(
+                style: TextButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  padding: const EdgeInsets.all(16.0),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero,
                   ),
-                  onPressed: () {
-                    Navigator.of(context).pushNamedAndRemoveUntil('/login', (route) => false);
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(
-                        Icons.exit_to_app,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pushNamedAndRemoveUntil('/login', (route) => false);
+                },
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.exit_to_app,
+                      color: Colors.red,
+                      size: 16.0,
+                    ),
+                    SizedBox(width: 8.0),
+                    Text(
+                      '退出',
+                      style: TextStyle(
                         color: Colors.red,
-                        size: 16.0,
+                        fontSize: 16.0,
                       ),
-                      SizedBox(width: 8.0),
-                      Text(
-                        '退出',
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontSize: 16.0,
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-              SizedBox(height: 100),
-            ],
-          ),
+            ),
+            const SizedBox(height: 100),
+          ],
         ),
       ),
     );
