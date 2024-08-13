@@ -27,12 +27,12 @@ class _SelectUserWidgetState extends State<SelectUserWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40.w,
+      height: 40.r,
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
             color: const Color(0xFFDCDCDC),
-            width: 0.5.w,
+            width: 0.5.r,
           ),
         ),
       ),
@@ -56,27 +56,27 @@ class _SelectUserWidgetState extends State<SelectUserWidget> {
         child: Row(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 5.w),
+              padding: EdgeInsets.symmetric(horizontal: 5.r),
               child: _select
                   ? Icon(
                       Icons.check_circle,
                       color: const Color(0xFFADD8E6),
-                      size: 20.w,
+                      size: 20.r,
                     )
                   : Icon(
                       Icons.radio_button_unchecked,
                       color: const Color(0xFFADD8E6),
-                      size: 20.w,
+                      size: 20.r,
                     ),
             ),
             Container(
-              padding: EdgeInsets.only(left: 5.w, right: 10.w),
+              padding: EdgeInsets.only(left: 5.r, right: 10.r),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(5.r),
                 child: Image.asset(
                   widget.selectUser.user.profilePicture!,
-                  width: 24.w,
-                  height: 24.w,
+                  width: 24.r,
+                  height: 24.r,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -84,7 +84,7 @@ class _SelectUserWidgetState extends State<SelectUserWidget> {
             Text(
               "${widget.selectUser.user.name}",
               style: TextStyle(
-                fontSize: 13.sp,
+                fontSize: 13.r,
               ),
             ),
           ],

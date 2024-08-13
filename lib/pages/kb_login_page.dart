@@ -6,7 +6,7 @@ import 'package:knowledege_bridge_flutter/common/show_tips_utils.dart';
 import 'package:knowledege_bridge_flutter/dao/user_controller.dart';
 import 'package:knowledege_bridge_flutter/widgets/tips_widget.dart';
 
-import '../dao/user_controller_test.dart';
+import '../dao/user_controller_test2.dart';
 import '../response/base_response.dart';
 import '../model/user_model.dart';
 
@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
-        padding: EdgeInsets.fromLTRB(35.w, 45.w, 35.w, 10.w),
+        padding: EdgeInsets.fromLTRB(35.r, 45.r, 35.r, 10.r),
         child: Form(
           key: _formKey,
           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -61,63 +61,69 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               Container(
                 alignment: Alignment.topLeft,
-                height: 80.w,
+                height: 80.r,
+                width: 290.r,
                 child: Image(
                   image: const AssetImage("lib/images/logo.png"),
-                  height: 60.w,
+                  height: 60.r,
+                  width: 60.r,
                 ),
               ),
               Container(
                 alignment: Alignment.topLeft,
-                height: 35.w,
+                height: 35.r,
+                width: 290.r,
                 child: Text(
                   "您好，",
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 22.sp,
+                    fontSize: 22.r,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
               Container(
                 alignment: Alignment.topLeft,
-                height: 45.w,
+                height: 45.r,
+                width: 290.r,
                 child: Text(
                   "欢迎来到KB",
                   style: TextStyle(
                     color: Colors.grey,
-                    fontSize: 12.sp,
+                    fontSize: 12.r,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
               Container(
                 alignment: Alignment.topLeft,
-                height: 25.w,
+                height: 25.r,
+                width: 290.r,
                 child: Text(
                   "邮箱",
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 14.sp,
+                    fontSize: 14.r,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
               SizedBox(
-                height: 65.w,
+                height: 65.r,
+                width: 290.r,
                 child: TextFormField(
                   autofocus: true,
                   decoration: InputDecoration(
                     hintText: "输入您的邮箱",
                     hintStyle: TextStyle(
                       color: const Color(0xFFD0D6D9),
-                      height: 1.75.w,
-                      fontSize: 14.sp,
+                      height: 1.75.r,
+                      fontSize: 14.r,
                     ),
                     errorStyle: TextStyle(
                       color: const Color(0xFFC75450),
-                      fontSize: 10.sp,
-                      height: 0.25.w,
+                      fontSize: 10.r,
+                      height: 0.25.r,
                     ),
                     filled: true,
                     fillColor: const Color(0xFFF2FCFD),
@@ -126,7 +132,7 @@ class _LoginPageState extends State<LoginPage> {
                     focusedBorder: focusedBorder,
                     focusedErrorBorder: errorBorder,
                     errorBorder: errorBorder,
-                    contentPadding: EdgeInsets.fromLTRB(15.w, 10.w, 15.w, 10.w),
+                    contentPadding: EdgeInsets.fromLTRB(15.r, 10.r, 15.r, 10.r),
                   ),
                   onSaved: (v) {
                     setState(() {
@@ -148,18 +154,20 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Container(
                 alignment: Alignment.topLeft,
-                height: 25.w,
+                height: 25.r,
+                width: 290.r,
                 child: Text(
                   "密码",
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 14.sp,
+                    fontSize: 14.r,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
               SizedBox(
-                height: 65.w,
+                height: 65.r,
+                width: 290.r,
                 child: TextFormField(
                   autofocus: true,
                   decoration: InputDecoration(
@@ -180,13 +188,13 @@ class _LoginPageState extends State<LoginPage> {
                     suffixIconColor: Colors.grey,
                     hintStyle: TextStyle(
                       color: const Color(0xFFD0D6D9),
-                      fontSize: 14.sp,
-                      height: 1.75.w,
+                      fontSize: 14.r,
+                      height: 1.75.r,
                     ),
                     errorStyle: TextStyle(
                       color: const Color(0xFFC75450),
-                      fontSize: 10.sp,
-                      height: 0.25.w,
+                      fontSize: 10.r,
+                      height: 0.25.r,
                     ),
                     filled: true,
                     fillColor: const Color(0xFFF2FCFD),
@@ -195,7 +203,7 @@ class _LoginPageState extends State<LoginPage> {
                     focusedBorder: focusedBorder,
                     focusedErrorBorder: errorBorder,
                     errorBorder: errorBorder,
-                    contentPadding: EdgeInsets.fromLTRB(15.w, 10.w, 15.w, 10.w),
+                    contentPadding: EdgeInsets.fromLTRB(15.r, 10.r, 15.r, 10.r),
                   ),
                   obscureText: _passwordInvisible,
                   onSaved: (v) {
@@ -210,14 +218,15 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Container(
                 alignment: Alignment.topRight,
-                height: 30.w,
+                height: 30.r,
+                width: 290.r,
                 child: InkWell(
                   child: Text(
                     "忘记密码",
                     style: TextStyle(
                       color: Colors.black26,
-                      fontSize: 10.sp,
-                      height: 1.w,
+                      fontSize: 10.r,
+                      height: 1.r,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -239,7 +248,7 @@ class _LoginPageState extends State<LoginPage> {
                   boxShadow: [
                     BoxShadow(
                       color: const Color(0xFFDFF4FF),
-                      offset: Offset(3.w, 3.w),
+                      offset: Offset(3.r, 3.r),
                       blurRadius: 5.r,
                     ),
                   ],
@@ -286,13 +295,13 @@ class _LoginPageState extends State<LoginPage> {
                     },
                     child: ConstrainedBox(
                       constraints:
-                          BoxConstraints.tightFor(height: 45.w, width: 250.w),
+                          BoxConstraints.tightFor(height: 45.r, width: 250.r),
                       child: Center(
                         child: Padding(
-                          padding: EdgeInsets.fromLTRB(8.w, 8.w, 8.w, 8.w),
+                          padding: EdgeInsets.fromLTRB(8.r, 8.r, 8.r, 8.r),
                           child: DefaultTextStyle(
                             style:
-                                TextStyle(color: Colors.white, fontSize: 14.sp),
+                                TextStyle(color: Colors.white, fontSize: 14.r),
                             child: const Text("登录"),
                           ),
                         ),
@@ -303,7 +312,9 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Container(
                 alignment: Alignment.center,
-                padding: EdgeInsets.only(top: 20.w),
+                height: 35.r,
+                width: 290.r,
+                padding: EdgeInsets.only(top: 20.r),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -311,7 +322,7 @@ class _LoginPageState extends State<LoginPage> {
                       "还没有账号？",
                       style: TextStyle(
                         color: Colors.black26,
-                        fontSize: 10.sp,
+                        fontSize: 10.r,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -320,7 +331,7 @@ class _LoginPageState extends State<LoginPage> {
                         "立即注册",
                         style: TextStyle(
                           color: Colors.blue,
-                          fontSize: 10.sp,
+                          fontSize: 10.r,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -333,7 +344,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Expanded(
                 child: Container(
-                  padding: EdgeInsets.only(bottom: 10.w),
+                  padding: EdgeInsets.only(bottom: 10.r),
                   alignment: Alignment.bottomCenter,
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -342,7 +353,7 @@ class _LoginPageState extends State<LoginPage> {
                         "登录即表示同意APP",
                         style: TextStyle(
                           color: Colors.black26,
-                          fontSize: 10.sp,
+                          fontSize: 10.r,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -351,7 +362,7 @@ class _LoginPageState extends State<LoginPage> {
                           "《用户协议》",
                           style: TextStyle(
                             color: Colors.black45,
-                            fontSize: 10.sp,
+                            fontSize: 10.r,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -363,7 +374,7 @@ class _LoginPageState extends State<LoginPage> {
                         "&",
                         style: TextStyle(
                           color: Colors.black26,
-                          fontSize: 10.sp,
+                          fontSize: 10.r,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -372,7 +383,7 @@ class _LoginPageState extends State<LoginPage> {
                           "《服务条款》",
                           style: TextStyle(
                             color: Colors.black45,
-                            fontSize: 10.sp,
+                            fontSize: 10.r,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

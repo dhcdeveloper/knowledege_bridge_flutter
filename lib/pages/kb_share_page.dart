@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:knowledege_bridge_flutter/dao/upload_controller_test.dart';
-import 'package:knowledege_bridge_flutter/dao/user_controller_test.dart';
+import 'package:knowledege_bridge_flutter/dao/upload_controller_test2.dart';
+import 'package:knowledege_bridge_flutter/dao/user_controller_test2.dart';
 import 'package:knowledege_bridge_flutter/model/share_content.dart';
 import 'package:knowledege_bridge_flutter/model/user_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -161,7 +161,9 @@ class _SharePageState extends State<SharePage> {
 
     double getEndCardHeight(int cardLength) {
       int maxCardNum = screenHeight ~/ 200.w - 1;
-      return cardLength > maxCardNum ? screenHeight % 200.w + 90.w : screenHeight - cardLength * 200.w - 130.w;
+      return cardLength > maxCardNum
+          ? screenHeight % 200.w + 90.w
+          : screenHeight - cardLength * 200.w - 130.w;
     }
 
     return Scaffold(
@@ -213,7 +215,7 @@ class _SharePageState extends State<SharePage> {
             Expanded(
               flex: 1,
               child: TabBar(
-                tabs: _tabs.map((e) => Tab(text: e)).toList(),
+                tabs: _tabs.map((e) => Tab(text: e, height: 50.r)).toList(),
               ),
             ),
             Expanded(
@@ -227,22 +229,43 @@ class _SharePageState extends State<SharePage> {
                           ? const Center(
                               child: Text('还没有可查看的文件哦~'),
                             )
-                          : ListView.builder(
-                              itemCount: _allShareContents.length + 1,
-                              itemBuilder: (BuildContext context, int index) {
-                                if (index == _allShareContents.length) {
-                                  return Container(
-                                    alignment: Alignment.topCenter,
-                                    padding: EdgeInsets.only(top: 10.w),
-                                    height: getEndCardHeight(_allShareContents.length),
-                                    color: const Color(0xFFF5F5F5),
-                                    child: const Text('没有更多了'),
-                                  );
-                                } else {
-                                  return ShareCardWidget(
-                                      shareContent: _allShareContents[index]);
-                                }
-                              },
+                          : Container(
+                              color: const Color(0xFFF5F5F5),
+                              child: CustomScrollView(
+                                slivers: [
+                                  SliverGrid(
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount:
+                                          ScreenUtil().screenWidth ~/ 360.r,
+                                      mainAxisExtent: 200.r,
+                                    ),
+                                    delegate: SliverChildBuilderDelegate(
+                                      (BuildContext context, int index) {
+                                        return ShareCardWidget(
+                                            shareContent:
+                                                _allShareContents[index]);
+                                      },
+                                      childCount: _allShareContents.length,
+                                    ),
+                                  ),
+                                  SliverList(
+                                    delegate: SliverChildBuilderDelegate(
+                                      (BuildContext context, int index) {
+                                        return Container(
+                                          alignment: Alignment.topCenter,
+                                          padding: EdgeInsets.only(top: 10.w),
+                                          height: getEndCardHeight(
+                                              _allShareContents.length),
+                                          color: const Color(0xFFF5F5F5),
+                                          child: const Text('没有更多了'),
+                                        );
+                                      },
+                                      childCount: 1,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                   isLoading
                       ? const LoadingWidget()
@@ -250,22 +273,43 @@ class _SharePageState extends State<SharePage> {
                           ? const Center(
                               child: Text('还没有分享文件哦~'),
                             )
-                          : ListView.builder(
-                              itemCount: _myShareContents.length + 1,
-                              itemBuilder: (BuildContext context, int index) {
-                                if (index == _myShareContents.length) {
-                                  return Container(
-                                    alignment: Alignment.topCenter,
-                                    padding: EdgeInsets.only(top: 10.w),
-                                    height: getEndCardHeight(_myShareContents.length),
-                                    color: const Color(0xFFF5F5F5),
-                                    child: const Text('没有更多了'),
-                                  );
-                                } else {
-                                  return ShareCardWidget(
-                                      shareContent: _myShareContents[index]);
-                                }
-                              },
+                          : Container(
+                              color: const Color(0xFFF5F5F5),
+                              child: CustomScrollView(
+                                slivers: [
+                                  SliverGrid(
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount:
+                                          ScreenUtil().screenWidth ~/ 360.r,
+                                      mainAxisExtent: 200.r,
+                                    ),
+                                    delegate: SliverChildBuilderDelegate(
+                                      (BuildContext context, int index) {
+                                        return ShareCardWidget(
+                                            shareContent:
+                                                _myShareContents[index]);
+                                      },
+                                      childCount: _myShareContents.length,
+                                    ),
+                                  ),
+                                  SliverList(
+                                    delegate: SliverChildBuilderDelegate(
+                                      (BuildContext context, int index) {
+                                        return Container(
+                                          alignment: Alignment.topCenter,
+                                          padding: EdgeInsets.only(top: 10.w),
+                                          height: getEndCardHeight(
+                                              _myShareContents.length),
+                                          color: const Color(0xFFF5F5F5),
+                                          child: const Text('没有更多了'),
+                                        );
+                                      },
+                                      childCount: 1,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                 ],
               ),

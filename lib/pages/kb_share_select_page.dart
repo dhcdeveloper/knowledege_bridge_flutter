@@ -48,7 +48,7 @@ class _ShareSelectPageState extends State<ShareSelectPage> {
           _userWidgetList.add(
             Container(
               color: const Color(0xFFF5F5F5),
-              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.w),
+              padding: EdgeInsets.symmetric(horizontal: 10.r, vertical: 5.r),
               child: Text(
                 selectUser.user.group == 1
                     ? '通信一部'
@@ -57,7 +57,7 @@ class _ShareSelectPageState extends State<ShareSelectPage> {
                         : '通信三部',
                 style: TextStyle(
                   color: const Color(0xFF808080),
-                  fontSize: 12.sp,
+                  fontSize: 12.r,
                 ),
               ),
             ),
@@ -77,7 +77,6 @@ class _ShareSelectPageState extends State<ShareSelectPage> {
 
   @override
   Widget build(BuildContext context) {
-
     var customBorder = const OutlineInputBorder(
       borderSide: BorderSide(color: Color(0xFFD3D3D3)),
     );
@@ -97,26 +96,28 @@ class _ShareSelectPageState extends State<ShareSelectPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const Text('共享给谁'),
-            SizedBox(
-              width: 60.w,
-              child: ElevatedButton(
-                onPressed: () {
-                  //通过路由传值将选择的用户传给上传页面
-                  Navigator.pop(context, _selectUserList);
-                },
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.r),
-                    ),
+            ElevatedButton(
+              onPressed: () {
+                //通过路由传值将选择的用户传给上传页面
+                Navigator.pop(context, _selectUserList);
+              },
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.r),
                   ),
-                  minimumSize: MaterialStateProperty.all(Size.zero),
-                  padding: MaterialStateProperty.all(EdgeInsets.all(6.w)),
                 ),
+                minimumSize: MaterialStateProperty.all(Size.zero),
+                padding: MaterialStateProperty.all(EdgeInsets.all(5.r)),
+              ),
+              child: Container(
+                alignment: Alignment.center,
+                height: 30.r,
+                width: 60.r,
                 child: Text(
                   '确定',
                   style: TextStyle(
-                    fontSize: 16.sp,
+                    fontSize: 16.r,
                   ),
                 ),
               ),
@@ -129,27 +130,27 @@ class _ShareSelectPageState extends State<ShareSelectPage> {
           SliverAppBar(
             automaticallyImplyLeading: false,
             pinned: true,
-            toolbarHeight: 50.w,
+            toolbarHeight: 50.r,
             backgroundColor: const Color(0xFFF5F5F5),
             title: Container(
-              height: 40.w,
-              padding: EdgeInsets.symmetric(vertical: 2.w),
+              height: 40.r,
+              padding: EdgeInsets.symmetric(vertical: 2.r),
               child: TextField(
                 style: TextStyle(
-                  fontSize: 14.sp,
+                  fontSize: 14.r,
                 ),
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
                   hintText: "搜索",
                   hintStyle: TextStyle(
-                    fontSize: 14.sp,
+                    fontSize: 14.r,
                   ),
                   prefixIcon: const Icon(Icons.search_rounded),
                   border: customBorder,
                   enabledBorder: customBorder,
                   focusedBorder: focusedBorder,
-                  contentPadding: EdgeInsets.all(5.w),
+                  contentPadding: EdgeInsets.all(5.r),
                 ),
                 onChanged: (String text) {
                   setState(() {
@@ -161,11 +162,11 @@ class _ShareSelectPageState extends State<ShareSelectPage> {
               ),
             ),
             bottom: PreferredSize(
-              preferredSize: Size.fromHeight(1.w),
+              preferredSize: Size.fromHeight(1.r),
               child: Container(
                 decoration: BoxDecoration(
                   border: Border(
-                    bottom: BorderSide(color: Colors.grey, width: 0.5.w),
+                    bottom: BorderSide(color: Colors.grey, width: 0.5.r),
                   ),
                 ),
               ),

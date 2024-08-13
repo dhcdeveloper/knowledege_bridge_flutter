@@ -15,21 +15,38 @@ class HeadPortraitWidget extends StatefulWidget {
 class _HeadPortraitWidgetState extends State<HeadPortraitWidget> {
   @override
   Widget build(BuildContext context) {
-    return Chip(
-      padding: EdgeInsets.all(5.w),
-      labelPadding: EdgeInsets.all(0.w),
-      //用户头像
-      avatar: ClipRRect(
-        borderRadius: BorderRadius.circular(5.r),
-        child: Image.asset(
-          widget.user.profilePicture!,
-          width: 20.w,
-          height: 20.w,
-          fit: BoxFit.cover,
+    return Container(
+      padding: EdgeInsets.all(5.r),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10.r),
+        border: Border.all(
+          color: Colors.black,
         ),
       ),
-      //用户名称
-      label: Text(widget.user.name!),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            padding: EdgeInsets.only(right: 5.r),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(5.r),
+              child: Image.asset(
+                widget.user.profilePicture!,
+                width: 20.r,
+                height: 20.r,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Text(
+            widget.user.name!,
+            style: TextStyle(
+              fontSize: 12.r,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

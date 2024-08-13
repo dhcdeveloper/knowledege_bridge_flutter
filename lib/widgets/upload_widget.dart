@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mime/mime.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,12 +20,16 @@ class _UploadWidgetState extends State<UploadWidget> {
   @override
   initState() {
     super.initState();
-    //获取文件类型
-    final String? mimeType = lookupMimeType(widget.file.path!);
-    setState(() {
-      //判断文件是否为图片
-      _isImage = mimeType!.startsWith('image/');
-    });
+    if (kIsWeb) {
+      _isImage = false;
+    } else {
+      //获取文件类型
+      final String? mimeType = lookupMimeType(widget.file.path!);
+      setState(() {
+        //判断文件是否为图片
+        _isImage = mimeType!.startsWith('image/');
+      });
+    }
   }
 
   @override
@@ -36,7 +41,7 @@ class _UploadWidgetState extends State<UploadWidget> {
           borderRadius: BorderRadius.circular(20.r),
           border: Border.all(
             color: const Color(0xFFD0D0D0),
-            width: 1.w,
+            width: 1.r,
           ),
         ),
         child: Center(
@@ -44,8 +49,8 @@ class _UploadWidgetState extends State<UploadWidget> {
             borderRadius: BorderRadius.circular(20.r),
             child: Image.file(
               File(widget.file.path!),
-              width: 70.w,
-              height: 70.w,
+              width: 70.r,
+              height: 70.r,
               fit: BoxFit.cover,
             ),
           ),
@@ -53,13 +58,13 @@ class _UploadWidgetState extends State<UploadWidget> {
       );
     } else {
       return Container(
-        width: 70.w,
-        height: 70.w,
+        width: 70.r,
+        height: 70.r,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.r),
           border: Border.all(
             color: const Color(0xFFD0D0D0),
-            width: 1.w,
+            width: 1.r,
           ),
           color: const Color(0xFFF3F3F3),
         ),

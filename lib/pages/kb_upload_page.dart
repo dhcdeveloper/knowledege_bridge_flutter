@@ -1,4 +1,5 @@
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -6,7 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:knowledege_bridge_flutter/common/pickfile_utils.dart';
 import 'package:knowledege_bridge_flutter/common/show_tips_utils.dart';
 import 'package:knowledege_bridge_flutter/dao/upload_controller.dart';
-import 'package:knowledege_bridge_flutter/dao/upload_controller_test.dart';
+import 'package:knowledege_bridge_flutter/dao/upload_controller_test2.dart';
 import 'package:knowledege_bridge_flutter/model/user_model.dart';
 import 'package:knowledege_bridge_flutter/widgets/head_portrait_widget.dart';
 import 'package:knowledege_bridge_flutter/widgets/upload_widget.dart';
@@ -139,12 +140,14 @@ class _UploadPageState extends State<UploadPage> {
           _addFileIntoUploadList();
         },
         child: Container(
+          width: 70.r,
+          height: 70.r,
           decoration: BoxDecoration(
             color: const Color(0xFFF3F3F3),
             borderRadius: BorderRadius.circular(20.r),
             border: Border.all(
               color: const Color(0xFFD0D0D0),
-              width: 1.w,
+              width: 1.r,
             ),
           ),
           child: const Icon(
@@ -157,20 +160,18 @@ class _UploadPageState extends State<UploadPage> {
   }
 
   //上传文件
-  Future<void> _uploadFile() async {
-    await PermissionUtils.requestPermission();
-    PlatformFile? file = await PickFileUtils.pickFile();
-    BaseResponse<UploadResponse> res =
-    await UploadController.uploadFile([file!]);
-    print(res.responseData!.message);
-  }
+  // Future<void> _uploadFile() async {
+  //   await PermissionUtils.requestPermission();
+  //   PlatformFile? file = await PickFileUtils.pickFile();
+  //   BaseResponse<UploadResponse> res =
+  //   await UploadController.uploadFile([file!]);
+  //   print(res.responseData!.message);
+  // }
 
   //读取文件并展示缩略图
   _addFileIntoUploadList() async {
-    //获取文件权限
-    await PermissionUtils.requestPermission();
     //读取文件
-    PlatformFile? file = await PickFileUtils.pickFile();
+    PlatformFile? file = await PickFileUtils.pickFile(kIsWeb);
     setState(() {
       //生成缩略图
       _uploadWidgetList.insert(
@@ -183,11 +184,9 @@ class _UploadPageState extends State<UploadPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        backgroundColor: Theme
-            .of(context)
-            .colorScheme
-            .inversePrimary,
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
@@ -199,16 +198,15 @@ class _UploadPageState extends State<UploadPage> {
             CustomScrollView(
               slivers: [
                 SliverPadding(
-                  padding: EdgeInsets.all(10.w),
+                  padding: EdgeInsets.all(10.r),
                   sliver: SliverGrid(
-                    gridDelegate:
-                    const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 5,
-                        childAspectRatio: 1.0,
-                        crossAxisSpacing: 3,
-                        mainAxisSpacing: 3),
+                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 80.r,
+                      crossAxisSpacing: 3.r,
+                      mainAxisSpacing: 3.r,
+                    ),
                     delegate: SliverChildBuilderDelegate(
-                          (BuildContext context, int index) {
+                      (BuildContext context, int index) {
                         return _uploadWidgetList[index];
                       },
                       childCount: _uploadWidgetList.length,
@@ -217,31 +215,32 @@ class _UploadPageState extends State<UploadPage> {
                 ),
                 SliverList(
                   delegate: SliverChildBuilderDelegate(
-                        (BuildContext context, int index) {
+                    (BuildContext context, int index) {
                       return Column(
                         children: [
                           Container(
-                            padding: EdgeInsets.symmetric(horizontal: 10.w),
+                            padding: EdgeInsets.symmetric(horizontal: 10.r),
                             child: TextField(
                               controller: _titleController,
-                              decoration: const InputDecoration(
+                              decoration: InputDecoration(
                                 hintText: "填写标题",
+                                hintStyle: TextStyle(fontSize: 16.r),
                               ),
                             ),
                           ),
                           Container(
-                            padding: EdgeInsets.symmetric(horizontal: 10.w),
+                            padding: EdgeInsets.symmetric(horizontal: 10.r),
                             child: TextField(
                               controller: _mainBodyController,
                               decoration: InputDecoration(
                                   hintText: "添加正文",
-                                  hintStyle: TextStyle(fontSize: 14.sp)),
+                                  hintStyle: TextStyle(fontSize: 14.r)),
                               minLines: 5,
                               maxLines: 10,
                             ),
                           ),
                           Container(
-                            padding: EdgeInsets.all(10.w),
+                            padding: EdgeInsets.all(10.r),
                             child: InkWell(
                               onTap: () async {
                                 //获取路由返回的选择用户列表
@@ -257,7 +256,8 @@ class _UploadPageState extends State<UploadPage> {
 
                                   //已经被选择的用户
                                   _selectedUserList.clear();
-                                  for (SelectUser selectUser in _selectUserList) {
+                                  for (SelectUser selectUser
+                                      in _selectUserList) {
                                     if (selectUser.select) {
                                       _selectedUserList.add(selectUser.user);
                                     }
@@ -265,7 +265,8 @@ class _UploadPageState extends State<UploadPage> {
 
                                   //重新生成上次选择用户列表还原（深拷贝）
                                   _preSelectUserList.clear();
-                                  for (SelectUser selectUser in _selectUserList) {
+                                  for (SelectUser selectUser
+                                      in _selectUserList) {
                                     _preSelectUserList.add(SelectUser(
                                         user: selectUser.user,
                                         select: selectUser.select));
@@ -275,7 +276,7 @@ class _UploadPageState extends State<UploadPage> {
                                     //分享给谁缩略图列表清空
                                     _shareWidgetList.clear();
                                     for (SelectUser selectUser
-                                    in _selectUserList) {
+                                        in _selectUserList) {
                                       //如果用户被选中，则添加缩略图
                                       if (selectUser.select) {
                                         _shareWidgetList.add(HeadPortraitWidget(
@@ -288,7 +289,7 @@ class _UploadPageState extends State<UploadPage> {
                                   //使用上次选择用户列表还原（深拷贝）
                                   _selectUserList.clear();
                                   for (SelectUser selectUser
-                                  in _preSelectUserList) {
+                                      in _preSelectUserList) {
                                     _selectUserList.add(SelectUser(
                                         user: selectUser.user,
                                         select: selectUser.select));
@@ -299,7 +300,7 @@ class _UploadPageState extends State<UploadPage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   SizedBox(
-                                    height: 50.w,
+                                    height: 30.r,
                                     child: const Icon(
                                       Icons.group,
                                       color: Colors.blue,
@@ -307,17 +308,19 @@ class _UploadPageState extends State<UploadPage> {
                                   ),
                                   Container(
                                     padding:
-                                    EdgeInsets.symmetric(horizontal: 5.w),
-                                    height: 50.w,
-                                    child: const Center(
-                                      child: Text('共享给谁'),
+                                        EdgeInsets.symmetric(horizontal: 5.r),
+                                    height: 30.r,
+                                    child: Center(
+                                      child: Text(
+                                        '共享给谁',
+                                        style: TextStyle(fontSize: 13.r),
+                                      ),
                                     ),
                                   ),
-                                  SizedBox(
-                                    width: 249.w,
+                                  Expanded(
                                     child: Wrap(
-                                      spacing: 5.w,
-                                      runSpacing: -10.w,
+                                      spacing: 5.r,
+                                      runSpacing: 5.r,
                                       children: _shareWidgetList,
                                     ),
                                   ),
@@ -326,7 +329,7 @@ class _UploadPageState extends State<UploadPage> {
                             ),
                           ),
                           Container(
-                            height: 50.w,
+                            height: 50.r,
                           ),
                         ],
                       );
@@ -341,11 +344,8 @@ class _UploadPageState extends State<UploadPage> {
               left: 0,
               right: 0,
               child: Container(
-                color: Theme
-                    .of(context)
-                    .colorScheme
-                    .inversePrimary,
-                padding: EdgeInsets.fromLTRB(120.w, 5.w, 10.w, 5.w),
+                color: Theme.of(context).colorScheme.inversePrimary,
+                padding: EdgeInsets.fromLTRB(120.w, 5.r, 10.r, 5.r),
                 child: ElevatedButton(
                   onPressed: () async {
                     String title = _titleController.text;
@@ -360,7 +360,8 @@ class _UploadPageState extends State<UploadPage> {
                       ShowTipsUtils.showTips(context, '请选择要分享的用户');
                     } else {
                       //test
-                      await UploadControllerTest.setShareContentInJson(title, mainBody, _selectedUserList, _uploadList);
+                      await UploadControllerTest.setShareContentInJson(
+                          title, mainBody, _selectedUserList, _uploadList);
                       if (!context.mounted) return;
                       await ShowTipsUtils.showTips(context, "发布成功！");
                       if (!context.mounted) return;

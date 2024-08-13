@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class JsonUtils {
   final String _fileName;
@@ -49,5 +51,22 @@ class JsonUtils {
       // 处理异常
       return 9;
     }
+  }
+
+  static Future<bool> saveData(String key, Map<String, dynamic> json) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool result = await prefs.setString(key, jsonEncode(json));
+    return result;
+  }
+
+  static Future<String> readData(String key) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String result = prefs.getString(key) ?? 'error';
+    return result;
+  }
+
+  static Future<bool> deleteData(String key) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.remove(key);
   }
 }
