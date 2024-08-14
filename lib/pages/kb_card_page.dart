@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../widgets/share_card_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,27 +24,27 @@ class MyCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       color: Colors.white,
-      margin: const EdgeInsets.all(5),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(5)),
+      margin: EdgeInsets.all(5.r),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(5.r)),
       ),
       child: InkWell(
         onTap: onTap,
-        borderRadius: const BorderRadius.all(Radius.circular(5)),
+        borderRadius: BorderRadius.all(Radius.circular(5.r)),
         child: Padding(
-          padding: const EdgeInsets.all(12.0),
+          padding: EdgeInsets.all(12.r),
           child: Row(
             children: [
               ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(10)),
+                borderRadius: BorderRadius.all(Radius.circular(10.r)),
                 child: Image.asset(
                   imagePath,
-                  width: 50,
-                  height: 50,
+                  width: 50.r,
+                  height: 50.r,
                   fit: BoxFit.cover,
                 ),
               ),
-              const SizedBox(width: 5),
+              SizedBox(width: 5.r),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,7 +61,7 @@ class MyCard extends StatelessWidget {
                         ),
                         Text(
                           time,
-                          style: TextStyle(fontSize: 10, color: Colors.grey),
+                          style: TextStyle(fontSize: 10.r, color: Colors.grey),
                         ),
                       ],
                     ),
@@ -149,40 +150,95 @@ class _CardListPageState extends State<CardListPage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.name),
       ),
-      body: ListView.builder(
-        controller: _scrollController,
-        padding: const EdgeInsets.all(8.0),
-        itemCount: widget.subtitles.length,
-        itemBuilder: (context, index) {
-          return Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Center(
-                  child: Text(
-                    widget.timestamps[index],
-                    style: const TextStyle(fontSize: 12, color: Colors.grey),
-                    textAlign: TextAlign.center,
-                  ),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          bool isWeb = kIsWeb && constraints.maxWidth > 800;
+
+          return Center(
+            child: isWeb
+                ? FittedBox(
+              fit: BoxFit.contain,
+              alignment: Alignment.center,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxWidth: 360.w,
+                  maxHeight: 1600.h,
+                ),
+                child: ListView.builder(
+                  controller: _scrollController,
+                  padding: const EdgeInsets.all(8.0),
+                  itemCount: widget.subtitles.length,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Center(
+                            child: Text(
+                              widget.timestamps[index],
+                              style: TextStyle(fontSize: 12.sp, color: Colors.grey),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                        ManyCards(
+                          subtitle: widget.subtitles[index],
+                          imagePath1: widget.imagePath1[index],
+                          name: widget.name,
+                          imagePath2: widget.imagePath2[index],
+                          starttime: widget.starttime[index],
+                          endtime: widget.endtime[index],
+                          times: widget.times[index],
+                          title: widget.title[index],
+                          titles: widget.titles[index],
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ),
-              ManyCards(
-                subtitle: widget.subtitles[index],
-                imagePath1: widget  .imagePath1[index],
-                name: widget.name,
-                imagePath2: widget.imagePath2[index],
-                starttime: widget.starttime[index],
-                endtime: widget.endtime[index],
-                times: widget.times[index],
-                title: widget.title[index],
-                titles: widget.titles[index],
-              ),
-            ],
+            )
+                : ListView.builder(
+              controller: _scrollController,
+              padding: const EdgeInsets.all(8.0),
+              itemCount: widget.subtitles.length,
+              itemBuilder: (context, index) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Center(
+                        child: Text(
+                          widget.timestamps[index],
+                          style: TextStyle(fontSize: 12.sp, color: Colors.grey),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                    ManyCards(
+                      subtitle: widget.subtitles[index],
+                      imagePath1: widget.imagePath1[index],
+                      name: widget.name,
+                      imagePath2: widget.imagePath2[index],
+                      starttime: widget.starttime[index],
+                      endtime: widget.endtime[index],
+                      times: widget.times[index],
+                      title: widget.title[index],
+                      titles: widget.titles[index],
+                    ),
+                  ],
+                );
+              },
+            ),
           );
         },
       ),
     );
   }
+
+
 }
 
 

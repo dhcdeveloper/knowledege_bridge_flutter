@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../model/user_model.dart';
 
-import '../dao/user_controller_test.dart';
+import '../dao/user_controller_test2.dart';
 
 
 class PersonPage extends StatefulWidget {
@@ -31,40 +32,10 @@ class _PersonPageState extends State<PersonPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawerEnableOpenDragGesture: false,
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            ListTile(
-              title: const Text('登录'),
-              onTap: () {
-                Navigator.pushNamed(context, "/login");
-              },
-            ),
-            ListTile(
-              title: const Text('注册'),
-              onTap: () {
-                Navigator.pushNamed(context, "/register");
-              },
-            ),
-          ],
-        ),
-      ),
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(220.0),
+        preferredSize: Size.fromHeight(220.r),
         child: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          leading: Builder(
-            builder: (BuildContext context) {
-              return IconButton(
-                icon: const Icon(Icons.menu, size: 20),
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-              );
-            },
-          ),
           flexibleSpace: FutureBuilder<User>(
             future: _userFuture,
             builder: (context, snapshot) {
@@ -82,31 +53,31 @@ class _PersonPageState extends State<PersonPage> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(10.0),
+                      padding: EdgeInsets.all(10.r),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const CircleAvatar(
+                          CircleAvatar(
                             backgroundImage: AssetImage('lib/images/rabbit.png'),
-                            radius: 60,
+                            radius: 60.r,
                           ),
-                          const SizedBox(width: 16.0),
+                          SizedBox(width: 16.r),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 '姓名：${user.name ?? '---'}',
-                                style: const TextStyle(
-                                  fontSize: 20.0,
+                                style: TextStyle(
+                                  fontSize: 20.r,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
                                 ),
                               ),
-                              const SizedBox(height: 8.0),
+                              SizedBox(height: 8.0),
                               Text(
                                 '邮箱：${user.email ?? '---'}',
-                                style: const TextStyle(
-                                  fontSize: 12.0,
+                                style: TextStyle(
+                                  fontSize: 12.r,
                                   color: Colors.white,
                                 ),
                               ),
@@ -116,13 +87,13 @@ class _PersonPageState extends State<PersonPage> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 10.0, bottom: 10.0),
+                      padding: EdgeInsets.only(left: 10.r, bottom: 10.r),
                       child: Row(
                         children: [
-                          const SizedBox(width: 8.0),
+                          SizedBox(width: 8.r),
                           Container(
                             height: 30,
-                            padding: const EdgeInsets.all(4.0),
+                            padding: EdgeInsets.all(4.r),
                             decoration: BoxDecoration(
                               color: Colors.blueAccent,
                               border: Border.all(color: Colors.blueAccent),
@@ -130,33 +101,34 @@ class _PersonPageState extends State<PersonPage> {
                             ),
                             child: Center(
                               child: sex
-                                  ? const Icon(
+                                  ? Icon(
                                 Icons.face_3,
                                 color: Colors.white,
-                                size: 16.0,
+                                size: 16.r,
                               )
-                                  : const Icon(
+                                  : Icon(
                                 Icons.face,
                                 color: Colors.white,
-                                size: 16.0,
+                                size: 16.r,
                               ),
                             ),
                           ),
-                          const SizedBox(width: 10.0),
+                          SizedBox(width: 10.r),
                           Container(
                             height: 30,
-                            padding: const EdgeInsets.all(4.0),
+                            padding: EdgeInsets.all(4.r),
                             decoration: BoxDecoration(
                               color: Colors.blueAccent,
                               border: Border.all(color: Colors.blueAccent),
                               borderRadius: BorderRadius.circular(8.0),
                             ),
-                            child: const Center(
+                            child: Center(
                               child: FittedBox(
                                 fit: BoxFit.scaleDown,
                                 child: Text(
                                   '中国',
                                   style: TextStyle(
+                                    fontSize: 12.r,
                                     color: Colors.white,
                                   ),
                                 ),
@@ -167,8 +139,8 @@ class _PersonPageState extends State<PersonPage> {
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blueAccent,
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8.0, vertical: 4.0),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 8.r, vertical: 4.r),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8.0),
                               ),
@@ -180,25 +152,25 @@ class _PersonPageState extends State<PersonPage> {
                                 _refreshUser();
                               }
                             },
-                            child: const Row(
+                            child: Row(
                               children: [
                                 Icon(
                                   Icons.edit,
                                   color: Colors.white,
-                                  size: 16.0,
+                                  size: 16.r,
                                 ),
-                                SizedBox(width: 4.0),
+                                SizedBox(width: 4.r),
                                 Text(
                                   '编辑资料',
                                   style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 12.0,
+                                    fontSize: 12.r,
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                          const SizedBox(width: 16.0),
+                          SizedBox(width: 16.r),
                         ],
                       ),
                     ),
@@ -215,41 +187,41 @@ class _PersonPageState extends State<PersonPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            const SizedBox(height: 20),
+            SizedBox(height: 20.r),
             SizedBox(
               width: double.infinity,
               child: TextButton(
                 style: TextButton.styleFrom(
                   backgroundColor: Colors.white,
-                  padding: const EdgeInsets.all(16.0),
-                  shape: const RoundedRectangleBorder(
+                  padding: EdgeInsets.all(16.r),
+                  shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.zero,
                   ),
                 ),
                 onPressed: () {
                   Navigator.pushNamed(context, "/setting");
                 },
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Icon(
                       Icons.settings,
                       color: Colors.blueAccent,
-                      size: 16.0,
+                      size: 16.r,
                     ),
-                    SizedBox(width: 8.0),
+                    SizedBox(width: 8.r),
                     Text(
                       '设置',
                       style: TextStyle(
                         color: Colors.blueAccent,
-                        fontSize: 16.0,
+                        fontSize: 16.r,
                       ),
                     ),
                     Spacer(),
                     Icon(
                       Icons.arrow_forward,
                       color: Colors.blueAccent,
-                      size: 16.0,
+                      size: 16.r,
                     ),
                   ],
                 ),
@@ -261,28 +233,28 @@ class _PersonPageState extends State<PersonPage> {
               child: TextButton(
                 style: TextButton.styleFrom(
                   backgroundColor: Colors.white,
-                  padding: const EdgeInsets.all(16.0),
-                  shape: const RoundedRectangleBorder(
+                  padding: EdgeInsets.all(16.r),
+                  shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.zero,
                   ),
                 ),
                 onPressed: () {
                   Navigator.of(context).pushNamedAndRemoveUntil('/login', (route) => false);
                 },
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(
                       Icons.exit_to_app,
                       color: Colors.red,
-                      size: 16.0,
+                      size: 16.r,
                     ),
-                    SizedBox(width: 8.0),
+                    SizedBox(width: 8.r),
                     Text(
                       '退出',
                       style: TextStyle(
                         color: Colors.red,
-                        fontSize: 16.0,
+                        fontSize: 16.r,
                       ),
                     ),
                   ],

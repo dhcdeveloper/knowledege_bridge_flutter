@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'dart:async';
 import '../model/user_model.dart';
-import '../dao/user_controller_test.dart';
+import '../dao/user_controller_test2.dart';
 
 class EditPage extends StatefulWidget {
   const EditPage({super.key});
@@ -54,7 +55,7 @@ class _EditPageState extends State<EditPage> {
           title: const Text('编辑资料'),
         ),
         body: SingleChildScrollView(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(16.r),
           child: Center(
             child: Column(
               key: _formKey,
@@ -66,14 +67,14 @@ class _EditPageState extends State<EditPage> {
                       alignment: Alignment.center,
                       children: <Widget>[
                         CircleAvatar(
-                          radius: 80.0,
+                          radius: 80.r,
                           backgroundImage: _image ?? const AssetImage("lib/images/rabbit.png"),
                         ),
                         Positioned(
                           bottom: 0,
                           right: 0,
                           child: CircleAvatar(
-                            radius: 25.0,
+                            radius: 25.r,
                             backgroundColor: Colors.transparent,
                             child: IconButton(
                               icon: const Icon(null),
@@ -103,13 +104,13 @@ class _EditPageState extends State<EditPage> {
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
-                          SizedBox(height: 20),
+                          SizedBox(height: 20.r),
                           Container(
                             width: double.infinity,
                             child: TextButton(
                               style: TextButton.styleFrom(
                                 backgroundColor: Colors.white,
-                                padding: const EdgeInsets.all(13.0),
+                                padding: EdgeInsets.all(13.r),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.zero,
                                 ),
@@ -127,7 +128,7 @@ class _EditPageState extends State<EditPage> {
                                     '姓名',
                                     style: TextStyle(
                                       color: Colors.blueAccent,
-                                      fontSize: 16.0,
+                                      fontSize: 16.r,
                                     ),
                                   ),
                                   Spacer(),
@@ -135,20 +136,20 @@ class _EditPageState extends State<EditPage> {
                                     user.name ?? '---',
                                     style: TextStyle(
                                       color: Colors.blueAccent,
-                                      fontSize: 16.0,
+                                      fontSize: 16.r
                                     ),
                                   ),
                                 ],
                               ),
                             ),
                           ),
-                          SizedBox(height: 3),
+                          SizedBox(height: 3.r),
                           Container(
                             width: double.infinity,
                             child: TextButton(
                               style: TextButton.styleFrom(
                                 backgroundColor: Colors.white,
-                                padding: const EdgeInsets.all(13.0),
+                                padding: EdgeInsets.all(13.r),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.zero,
                                 ),
@@ -166,7 +167,7 @@ class _EditPageState extends State<EditPage> {
                                     '性别',
                                     style: TextStyle(
                                       color: Colors.blueAccent,
-                                      fontSize: 16.0,
+                                      fontSize: 16.r,
                                     ),
                                   ),
                                   Spacer(),
@@ -174,20 +175,20 @@ class _EditPageState extends State<EditPage> {
                                     sex,
                                     style: TextStyle(
                                       color: Colors.blueAccent,
-                                      fontSize: 16.0,
+                                      fontSize: 16.r,
                                     ),
                                   ),
                                 ],
                               ),
                             ),
                           ),
-                          SizedBox(height: 3),
+                          SizedBox(height: 3.r),
                           Container(
                             width: double.infinity,
                             child: TextButton(
                               style: TextButton.styleFrom(
                                 backgroundColor: Colors.white,
-                                padding: const EdgeInsets.all(13.0),
+                                padding: EdgeInsets.all(13.r),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.zero,
                                 ),
@@ -205,7 +206,7 @@ class _EditPageState extends State<EditPage> {
                                     '邮箱',
                                     style: TextStyle(
                                       color: Colors.blueAccent,
-                                      fontSize: 16.0,
+                                      fontSize: 16.r,
                                     ),
                                   ),
                                   Spacer(),
@@ -213,7 +214,7 @@ class _EditPageState extends State<EditPage> {
                                     user.email ?? '---',
                                     style: TextStyle(
                                       color: Colors.blueAccent,
-                                      fontSize: 16.0,
+                                      fontSize: 16.r,
                                     ),
                                   ),
                                 ],

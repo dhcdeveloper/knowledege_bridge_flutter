@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'kb_card_page.dart';
 
@@ -24,29 +25,32 @@ class MessagePage extends StatelessWidget {
         title: const Text('消息'),
       ),
       body: DefaultTabController(
-        length: tabs.length, // 设置 TabController 的长度
+        length: tabs.length,
         child: Column(
           children: [
             Container(
-              height: 60, // 确保 TabBar 高度足够
+              height: 80.r,
               child: TabBar(
                 isScrollable: false,
                 tabs: List.generate(
                   svgIcons.length,
                       (index) => Tab(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        SvgPicture.asset(
-                          svgIcons[index],
-                          height: 32,
-                        ),
-                        Text(
-                          tabs[index],
-                          style: TextStyle(fontSize: 10),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
+                  height: 60.r,
+                    child: Container(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SvgPicture.asset(
+                            svgIcons[index],
+                            height: 36.r,
+                          ),
+                          Text(
+                            tabs[index],
+                            style: TextStyle(fontSize: 12.r),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

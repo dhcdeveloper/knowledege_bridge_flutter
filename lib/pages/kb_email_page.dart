@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../model/user_model.dart';
-import '../dao/user_controller_test.dart';
+import '../dao/user_controller_test2.dart';
 
 class EmailPage extends StatefulWidget {
   const EmailPage({super.key});
@@ -59,7 +60,7 @@ class _EmailPageState extends State<EmailPage> {
                 return Form(
                   key: _formKey,
                   child: Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: EdgeInsets.all(16.r),
                     child: TextFormField(
                       controller: _emailController,
                       decoration: InputDecoration(
